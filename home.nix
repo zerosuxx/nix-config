@@ -13,24 +13,15 @@ in
 
   programs.home-manager.enable = true;
   home.packages = packages pkgs;
-  home.homeDirectory = "/data/data/com.termux.nix/files/home";
+  home.homeDirectory = builtins.getEnv "HOME";
   home.username = "nix-on-droid";
   home.stateVersion = "23.11";
-  
-  # home.file.".termux/termux.properties".text = ''
-  # extra-keys = [ \
-  # ['ESC','|', '/', '~','HOME','UP','END'], \
-  # ['CTRL', 'TAB', '=', '-','LEFT','DOWN','RIGHT'] \
-  # ]
-  # '';
-  
-  # (mkIf (builtins.getEnv "TERMUX_VERSION" != "") {
-  # home.activation = {
-  #   termuxProperties = lib.hm.dag.entryAfter ["writeBoundary"] ''
-  #     run echo "aa" > "$HOME/.termux/termux.properties"
-  #   '';
-  # };
-  # })
+
+  home.activation = mkIf (builtins.getEnv "TERMUX_VERSION" != "") {
+    termuxProperties = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      run cat "${builtins.toString ./config/termux/termux.properties}" > "$HOME/.termux/termux.properties"
+    '';
+  };
   
   programs.bash = bashsettings;
   programs.direnv.enable = true;
