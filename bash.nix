@@ -23,10 +23,11 @@ pkgs: {
     git_compl_path=${pkgs.git}/share/bash-completion/completions/git
     [ -f "$git_compl_path" ] && source "$git_compl_path"
 
-    RED="\033[0;31m"
-    GREEN="\033[0;32m"
-    NO_COLOR="\033[m"
-    BLUE="\033[0;34m"
+    RED="\[\033[0;31m\]"
+    GREEN="\[\033[1;32m\]"
+    BLUE="\[\033[0;34m\]"
+    PURPLE="\[\033[1;34m\]"
+    NO_COLOR="\[\033[00m\]"
 
     git_prompt_path=${pkgs.git}/share/bash-completion/completions/git-prompt.sh
     if [ -f "$git_prompt_path" ] && ! command -v __git_ps1 > /dev/null; then
@@ -34,10 +35,9 @@ pkgs: {
     fi
 
     prompt_symbol=$(test "$UID" == "0" && echo "$RED#$NO_COLOR" || echo "$")
-    export PS1="$RED[\t] $GREEN\u@\h $NO_COLOR\w$BLUE\`__git_ps1\`$NO_COLOR $prompt_symbol "
+    export PS1="$GREEN[\D{%H:%M:%S}] \u$NO_COLOR:$PURPLE\w$NO_COLOR$BLUE\`__git_ps1\`$NO_COLOR$prompt_symbol "
 
     if [[ "$OSTYPE" == "darwin"* ]]; then
-      # on mac, give support to wombat256 colors
       export TERM=xterm-256color
     fi
 
