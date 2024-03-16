@@ -1,5 +1,6 @@
 pkgs: with pkgs; [
   bash-completion
+  coreutils
   curl
   direnv
   git
@@ -8,8 +9,8 @@ pkgs: with pkgs; [
   gnused
   htop
   jq
-  #less
-  #libuuid
+  # less
+  # libuuid
   nano
   openssh
   openssl
