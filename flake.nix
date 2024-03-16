@@ -24,15 +24,6 @@
       "termux" = homeManager.lib.homeManagerConfiguration {
         pkgs = pkgsForSystem ("aarch64-linux");
         modules = [ (import ./home.nix) ];
-        # configuration = {pkgs, ...}: {
-        #   programs.home-manager.enable = true;
-        #   home.packages = [ pkgs.hello ];
-        # };
-
-        # system = "aarch64-linux";
-        # homeDirectory = "/data/data/com.termux.nix/files/home";
-        # username = "nix-on-droid";
-        # stateVersion = "23.11";
       };
     };
   };
