@@ -13,7 +13,7 @@ pkgs: {
     gst="git status";
     nfl="nix flake lock";
     nflu="nix flake lock --update-input";
-    sw="cd ~/nix-config && sh scripts/hm-switch.sh";
+    sw="cd ${builtins.getEnv "PWD"} && sh scripts/hm-switch.sh";
     hm="home-manager";
   };
 

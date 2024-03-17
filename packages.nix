@@ -19,7 +19,7 @@ pkgs: with pkgs; [
   # nix-template
   # nix-tree
   # nix-update
-  # nixpkgs-fmt
+  nixpkgs-fmt
   # nixpkgs-review
   wget
   xclip
