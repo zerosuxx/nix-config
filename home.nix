@@ -19,7 +19,7 @@ in
 
   home.activation = mkIf (builtins.getEnv "TERMUX_VERSION" != "") {
     termuxProperties = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      run cat "${builtins.toString ./config/termux/termux.properties}" > "$HOME/.termux/termux.properties"
+      run mkdir "$HOME/.termux" && cat "${builtins.toString ./config/termux/termux.properties}" > "$HOME/.termux/termux.properties"
     '';
   };
   
