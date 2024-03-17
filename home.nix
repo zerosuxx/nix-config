@@ -47,7 +47,8 @@ in
       ca = "commit --amend";
       can = "commit --amend --no-edit";
       cl = "clone";
-      cm = "commit -m";
+      cm = "commit -m"
+      cma = "commit -a -m";
       co = "checkout";
       cp = "cherry-pick";
       cpx = "cherry-pick -x";

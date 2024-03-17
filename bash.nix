@@ -38,7 +38,7 @@ pkgs: {
     fi
 
     prompt_symbol=$(test "$UID" == "0" && echo "$RED#$NO_COLOR" || echo "$")
-    export PS1="$GREEN[\D{%H:%M:%S}] \u$NO_COLOR:$PURPLE\w$NO_COLOR$BLUE\`__git_ps1\`$NO_COLOR$prompt_symbol "
+    export PS1="$GREEN[\D{%H:%M:%S}]\u$NO_COLOR:$PURPLE\w$NO_COLOR$BLUE\`__git_ps1\`$NO_COLOR$prompt_symbol "
 
     if [[ "$OSTYPE" == "darwin"* ]]; then
       export TERM=xterm-256color
