@@ -1,6 +1,6 @@
 pkgs: with pkgs; [
   bash-completion
-  # busybox
+  busybox
   curl
   direnv
   git
