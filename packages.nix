@@ -2,7 +2,6 @@ pkgs: with pkgs; [
   bash-completion
   busybox
   curl
-  direnv
   git
   gnupg
   gnumake
@@ -14,6 +13,7 @@ pkgs: with pkgs; [
   nano
   openssh
   openssl
+  nix-direnv
   # manix
   # nix-index
   # nix-template
