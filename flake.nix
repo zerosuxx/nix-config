@@ -31,6 +31,11 @@
           pkgs = pkgsForSystem ("aarch64-linux");
           modules = [ (import ./home.nix) ];
         };
+
+        "zero@ubuntu" = homeManager.lib.homeManagerConfiguration {
+          pkgs = pkgsForSystem ("x86_64-linux");
+          modules = [ (import ./home.nix) ];
+        };
       };
     };
 }

@@ -18,6 +18,8 @@ pkgs: {
   };
 
   initExtra = ''
+    source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
+
     git_prompt_path=${pkgs.git}/share/bash-completion/completions/git-prompt.sh
     [ -f "$git_prompt_path" ] && source "$git_prompt_path"
     git_compl_path=${pkgs.git}/share/bash-completion/completions/git
