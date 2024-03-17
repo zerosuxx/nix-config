@@ -19,6 +19,7 @@ pkgs: {
 
   initExtra = ''
     export EDITOR=nano
+    export NIX_CONFIG="experimental-features = nix-command flakes"
 
     git_prompt_path=${pkgs.git}/share/bash-completion/completions/git-prompt.sh
     [ -f "$git_prompt_path" ] && source "$git_prompt_path"
