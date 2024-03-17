@@ -14,7 +14,7 @@ in
   programs.home-manager.enable = true;
   home.packages = packages pkgs;
   home.homeDirectory = builtins.getEnv "HOME";
-  home.username = "nix-on-droid";
+  home.username = builtins.getEnv "USER";
   home.stateVersion = "23.11";
 
   home.activation = mkIf (builtins.getEnv "TERMUX_VERSION" != "") {
