@@ -3,6 +3,7 @@
 let
   bashsettings = import ./bash.nix pkgs;
   packages = import ./packages.nix;
+  environments = import ./environments.nix;
 
   inherit (lib) mkIf;
   inherit (pkgs.stdenv) isLinux isDarwin;
@@ -16,6 +17,7 @@ in
   home.homeDirectory = builtins.getEnv "HOME";
   home.username = builtins.getEnv "USER";
   home.stateVersion = "23.11";
+  home.sessionVariables = environments;
 
   home.activation = mkIf (builtins.getEnv "TERMUX_VERSION" != "") {
     termuxProperties = lib.hm.dag.entryAfter ["writeBoundary"] ''
