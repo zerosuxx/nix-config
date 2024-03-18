@@ -1,12 +1,14 @@
 { config, lib, pkgs, specialArgs, ... }:
 
 let
-  bashSettings = import ./bash.nix pkgs;
-  packages = import ./packages.nix;
-  environments = import ./environments.nix;
-
+  inherit (specialArgs) configName;
   inherit (lib) mkIf;
   inherit (pkgs.stdenv) isLinux isDarwin;
+
+  bashSettings = import ./bash.nix pkgs configName;
+  packages = import ./packages.nix;
+  variables = import ./variables.nix;
+  isTermux = builtins.getEnv "TERMUX_VERSION" != "";
 in
 {
   nixpkgs.config.allowUnfree = true;
@@ -16,10 +18,10 @@ in
   home.homeDirectory = builtins.getEnv "HOME";
   home.username = builtins.getEnv "USER";
   home.stateVersion = "23.11";
-  home.sessionVariables = environments;
+  home.sessionVariables = variables;
 
-  home.activation = mkIf (builtins.getEnv "TERMUX_VERSION" != "") {
-    termuxProperties = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  home.activation = mkIf (isTermux) {
+    termuxProperties = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       run mkdir -p "$HOME/.termux" && cat "${builtins.toString ./config/termux/termux.properties}" > "$HOME/.termux/termux.properties"
     '';
   };
@@ -28,6 +30,7 @@ in
     home-manager = {
       enable = true;
     };
+
     bash = bashSettings;
 
     direnv = {
@@ -50,8 +53,8 @@ in
       enable = true;
     };
 
-    command-not-found = {
-      enable = false;
+    nix-index = {
+      enable = true;
     };
 
     git = {
@@ -91,11 +94,11 @@ in
       };
       extraConfig = {
         pull = {
-          rebase=true;
+          rebase = true;
         };
         git.path = toString pkgs.git;
       };
-      includes = [];
+      includes = [ ];
     };
   };
 }

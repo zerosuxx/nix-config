@@ -15,12 +15,13 @@ pkgs: with pkgs; [
   openssl
   nix-direnv
   # manix
-  nix-index
+  # nix-index
   # nix-template
   # nix-tree
   # nix-update
   nixpkgs-fmt
   # nixpkgs-review
+  tzdata
   wget
   xclip
   yq-go

@@ -1,25 +1,23 @@
-pkgs: {
+pkgs: configName: {
   enable = true;
   shellAliases = {
-    ll="ls -alF";
-    ".."="cd ..";
-    "..."="cd ../..";
-    "...."="cd ../../..";
-    g="git";
-    k="kubectl";
-    d="docker";
-    dc="docker compose";
-    gco="git checkout";
-    gst="git status";
-    nfl="nix flake lock";
-    nflu="nix flake lock --update-input";
-    sw="cd ${builtins.getEnv "PWD"} && sh scripts/hm-switch.sh";
-    hm="home-manager";
+    ll = "ls -alF";
+    ".." = "cd ..";
+    "..." = "cd ../..";
+    "...." = "cd ../../..";
+    g = "git";
+    k = "kubectl";
+    d = "docker";
+    dc = "docker compose";
+    gco = "git checkout";
+    gst = "git status";
+    nfl = "nix flake lock";
+    nflu = "nix flake lock --update-input";
+    sw = "cd ${builtins.getEnv "PWD"} && sh scripts/hm-switch.sh ${configName}";
+    hm = "home-manager";
   };
 
   initExtra = ''
-    source ${pkgs.nix-index}/etc/profile.d/command-not-found.sh
-
     git_prompt_path=${pkgs.git}/share/bash-completion/completions/git-prompt.sh
     [ -f "$git_prompt_path" ] && source "$git_prompt_path"
     git_compl_path=${pkgs.git}/share/bash-completion/completions/git
