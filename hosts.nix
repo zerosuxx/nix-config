@@ -5,7 +5,7 @@
   };
 
   "zero@ubuntu/amd64" = {
-    system = "aarch64-linux";
+    system = "x86_64-linux";
     config = { };
   };
 
