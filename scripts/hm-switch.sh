@@ -1,7 +1,14 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
+
+set -xe
 
 target="$1"
+force="$2"
 
-#cd $(realpath $(dirname $(dirname "${BASH_SOURCE[0]}")))
 export NIX_CONFIG="experimental-features = nix-command flakes"
-nix run .#home-manager -- switch --impure --flake .#$target
+
+options=""
+if [[ "$force" == "1" ]]; then
+  options="-b bak-nix"
+fi
+nix run .#home-manager -- $options switch --impure --flake .#"$target"
