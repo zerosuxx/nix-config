@@ -2,6 +2,7 @@ pkgs: with pkgs; [
   bash-completion
   busybox
   curl
+  file.out
   git
   gnupg
   gnumake
