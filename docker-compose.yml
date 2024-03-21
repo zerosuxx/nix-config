@@ -3,6 +3,5 @@ version: '3.9'
 services:
   nix:
     build: .
-    command: "nix-daemon --daemon"
     volumes:
       - ./:/home/zero/nix-config

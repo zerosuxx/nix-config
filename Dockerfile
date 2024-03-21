@@ -19,3 +19,5 @@ COPY --chown=zero:zero . /home/zero/nix-config
 WORKDIR /home/zero/nix-config
 
 RUN sh scripts/install-home-manager.sh
+
+CMD ["sh", "-c", "chown $USER:$USER . && nix-daemon --daemon"]
