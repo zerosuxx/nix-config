@@ -3,6 +3,7 @@ pkgs: with pkgs; [
   busybox
   curl
   file.out
+  # glibc.bin
   git
   gnupg
   gnumake

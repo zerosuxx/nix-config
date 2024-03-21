@@ -22,7 +22,7 @@ in
 
   home.activation = mkIf (isTermux) {
     termuxProperties = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      run mkdir -p "$HOME/.termux" && cat "${builtins.getEnv "PWD"}/config/termux/termux.properties" > "$HOME/.termux/termux.properties" && cat "${builtins.getEnv "PWD"}/config/termux/colors.properties" > "$HOME/.termux/colors.properties"
+      run mkdir -p "$HOME/.termux" && cat "${builtins.toString ./config/termux/termux.properties}" > "$HOME/.termux/termux.properties" && cat "${builtins.toString ./config/termux/colors.properties}" > "$HOME/.termux/colors.properties"
       run ln -f -s /android/system/bin/linker64 /system/bin/linker64
     '';
   };
