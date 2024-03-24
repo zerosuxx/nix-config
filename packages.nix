@@ -23,6 +23,7 @@ pkgs: with pkgs; [
   # nix-update
   nixpkgs-fmt
   # nixpkgs-review
+  strace.out
   tzdata
   wget
   xclip
