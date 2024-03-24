@@ -1,20 +1,21 @@
 { config, lib, pkgs, specialArgs, ... }:
 
 let
-  inherit (specialArgs) configName;
   inherit (lib) mkIf;
   inherit (pkgs.stdenv) isLinux isDarwin;
+  inherit (specialArgs) configName;
 
   bashSettings = import ./bash.nix pkgs configName;
-  packages = import ./packages.nix;
+  gitSettings = import ./git.nix pkgs;
+  packages = import ./packages.nix pkgs;
   variables = import ./variables.nix;
   isTermux = builtins.getEnv "TERMUX_VERSION" != "";
 in
 {
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = [ ];
+  # nixpkgs.config.allowUnfree = true;
+  # nixpkgs.overlays = [ ];
 
-  home.packages = packages pkgs;
+  home.packages = packages;
   home.homeDirectory = builtins.getEnv "HOME";
   home.username = builtins.getEnv "USER";
   home.stateVersion = "23.11";
@@ -33,6 +34,7 @@ in
     };
 
     bash = bashSettings;
+    git = gitSettings;
 
     direnv = {
       enable = true;
@@ -56,50 +58,6 @@ in
 
     nix-index = {
       enable = true;
-    };
-
-    git = {
-      enable = true;
-      lfs.enable = true;
-      userName = "Tamas Mohos";
-      userEmail = "zerosuxx@gmail.com";
-      aliases = {
-        a = "add";
-        c = "commit";
-        ca = "commit --amend";
-        can = "commit --amend --no-edit";
-        cl = "clone";
-        cm = "commit -m";
-        cma = "commit -a -m";
-        co = "checkout";
-        cp = "cherry-pick";
-        cpx = "cherry-pick -x";
-        d = "diff";
-        f = "fetch";
-        fo = "fetch origin";
-        fu = "fetch upstream";
-        lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
-        lola = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
-        pl = "pull";
-        pr = "pull -r";
-        ps = "push";
-        psf = "push -f";
-        rb = "rebase";
-        rbi = "rebase -i";
-        r = "remote";
-        ra = "remote add";
-        rr = "remote rm";
-        rv = "remote -v";
-        rs = "remote show";
-        st = "status";
-      };
-      extraConfig = {
-        pull = {
-          rebase = true;
-        };
-        git.path = toString pkgs.git;
-      };
-      includes = [ ];
     };
   };
 }
