@@ -11,3 +11,8 @@ $ nix-shell -p git openssh --run "git clone git@github.com:zerosuxx/nix-config.g
 $ sh scripts/install-home-manager.sh
 $ nix-shell -p git --run "sh scripts/hm-switch.sh $target"
 ```
+
+### Update flake
+```shell
+$ nix flake update --flake .
+```
