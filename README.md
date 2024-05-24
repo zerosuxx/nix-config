@@ -14,5 +14,5 @@ $ nix-shell -p git --run "sh scripts/hm-switch.sh $target"
 
 ### Update flake
 ```shell
-$ nix flake update --flake .
+$ nix flake update
 ```
