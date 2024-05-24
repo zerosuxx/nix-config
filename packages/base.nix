@@ -3,6 +3,7 @@ pkgs: with pkgs; [
   busybox
   curl
   file.out
+  devbox
   # glibc.bin
   git
   gnupg

@@ -12,6 +12,7 @@ pkgs: configName: {
     gco = "git checkout";
     gst = "git status";
     nfl = "nix flake lock";
+    nfu = "nix flake update";
     nflu = "nix flake lock --update-input";
     sw = "cd ${builtins.getEnv "PWD"} && sh scripts/hm-switch.sh ${configName}";
     hm = "home-manager";
