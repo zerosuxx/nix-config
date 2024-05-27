@@ -1,24 +1,8 @@
 pkgs: configName: {
   enable = true;
-  shellAliases = {
-    ll = "ls -alF";
-    ".." = "cd ..";
-    "..." = "cd ../..";
-    "...." = "cd ../../..";
-    g = "git";
-    k = "kubectl";
-    d = "docker";
-    dc = "docker compose";
-    gco = "git checkout";
-    gst = "git status";
-    nfl = "nix flake lock";
-    nfu = "nix flake update";
-    nflu = "nix flake lock --update-input";
-    sw = "cd ${builtins.getEnv "PWD"} && sh scripts/hm-switch.sh ${configName}";
-    hm = "home-manager";
-  };
 
   initExtra = ''
+    exec zsh
     git_prompt_path=${pkgs.git}/share/bash-completion/completions/git-prompt.sh
     [ -f "$git_prompt_path" ] && source "$git_prompt_path"
     git_compl_path=${pkgs.git}/share/bash-completion/completions/git
