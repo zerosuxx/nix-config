@@ -1,6 +1,5 @@
 pkgs: with pkgs; [
   bash-completion
-  busybox
   curl
   file.out
   devbox
@@ -14,6 +13,7 @@ pkgs: with pkgs; [
   # less
   # libuuid
   nano
+  oh-my-zsh
   openssh
   openssl
   nix-direnv
@@ -24,7 +24,6 @@ pkgs: with pkgs; [
   # nix-update
   nixpkgs-fmt
   # nixpkgs-review
-  strace.out
   tzdata
   wget
   xclip

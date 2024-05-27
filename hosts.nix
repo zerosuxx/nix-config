@@ -13,4 +13,9 @@
     system = "aarch64-linux";
     config = { };
   };
+
+  "zero@darwin/arm64" = {
+    system = "aarch64-darwin";
+    config = { };
+  };
 }

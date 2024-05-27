@@ -39,6 +39,7 @@ in
     direnv = {
       enable = true;
       enableBashIntegration = true;
+      enableZshIntegration = true;
       nix-direnv.enable = true;
     };
 
@@ -58,6 +59,43 @@ in
 
     nix-index = {
       enable = true;
+    };
+
+    fzf = {
+      enable = true;
+
+      enableZshIntegration = true;
+    };
+
+    zsh = {
+      enable = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+      enableCompletion = true;
+
+      plugins = [
+        {
+          file = "powerlevel10k.zsh-theme";
+          name = "powerlevel10k";
+          src = "${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k";
+        }
+        {
+          file = "p10k.zsh";
+          name = "powerlevel10k-config";
+          src = ./dotfiles/zsh;
+        }
+      ];
+
+      oh-my-zsh = {
+         enable = true;
+         theme = "robbyrussell";
+         plugins = [
+           "git"
+           "npm"
+           "history"
+           "node"
+         ];
+      };
     };
   };
 }
