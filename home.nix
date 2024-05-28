@@ -21,6 +21,9 @@ in
   home.username = builtins.getEnv "USER";
   home.stateVersion = "23.11";
   home.sessionVariables = variables;
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
 
   home.activation = mkIf (isTermux) {
     termuxProperties = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
