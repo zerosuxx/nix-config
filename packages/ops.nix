@@ -9,4 +9,8 @@ pkgs: with pkgs; [
   })
   helmfile
   k9s
+  (pkgs.google-cloud-sdk.withExtraComponents ([
+    pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
+  ]))
+  google-cloud-sql-proxy
 ]
