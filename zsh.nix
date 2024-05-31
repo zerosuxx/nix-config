@@ -24,6 +24,8 @@ pkgs: configName: {
   
   initExtra = ''
     ${if builtins.hasAttr "tzdata" pkgs then ''[[ -z "$TZDIR" ]] && export TZDIR="${pkgs.tzdata}/share/zoneinfo"'' else ""}
+
+    zstyle ':completion:*:*:make:*' tag-order 'targets'
   '';
 
   plugins = [
