@@ -13,4 +13,8 @@ pkgs: with pkgs; [
     pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
   ]))
   google-cloud-sql-proxy
+  #(pkgs.callPackage "${builtins.fetchGit {
+  #  url = "https://github.com/Ch4s3r/nixpkgs.git";
+  #  ref = "main";
+  #}}/docker-desktop" { })
 ]
