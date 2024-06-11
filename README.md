@@ -4,7 +4,7 @@
 ```shell
 $ sh <(curl -L https://nixos.org/nix/install)
 $ nix-shell -p git openssh --run "git clone https://github.com/zerosuxx/nix-config.git \
-  && sed -i '' 's#https://github.com/#git@github.com:#g' nix-config/.git/config"
+  && sed -i'' 's#https://github.com/#git@github.com:#g' nix-config/.git/config"
 ```
 
 ### Bootstrap
