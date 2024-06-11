@@ -2,8 +2,9 @@
 
 ### Install
 ```shell
-# copy id_rsa file into ~/.ssh/id_rsa
-$ nix-shell -p git openssh --run "git clone git@github.com:zerosuxx/nix-config.git"
+$ sh <(curl -L https://nixos.org/nix/install)
+$ nix-shell -p openssh --run "ssh-keygen -N '' -t ed25519 -f ~/.ssh/id_ed25519"
+$ nix-shell -p git openssh --run "git clone github.com:zerosuxx/nix-config.git"
 ```
 
 ### Bootstrap
