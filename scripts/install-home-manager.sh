@@ -9,5 +9,5 @@ for pkg in $(nix-env -q); do
   echo "${pkg} package priority updated to '1'"
 done
 
-nix-channel --add https://github.com/nix-community/home-manager/archive/release-23.11.tar.gz home-manager
+nix-channel --add https://github.com/nix-community/home-manager/archive/release-24.05.tar.gz home-manager
 nix-channel --update
