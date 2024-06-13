@@ -4,6 +4,7 @@ pkgs: with pkgs; [
   file.out
   devbox
   # glibc.bin
+  go
   git
   gnupg
   gnumake
@@ -12,6 +13,7 @@ pkgs: with pkgs; [
   jq
   # less
   # libuuid
+  nodejs_20
   nano
   oh-my-zsh
   openssh
