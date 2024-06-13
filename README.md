@@ -15,8 +15,10 @@ $ nix-shell -p git --run "sh scripts/hm-switch.sh $target"
 
 ### Bootstrap with Nix Darwin
 ```shell
-$ sudo scutil --set HostName zero-m3-max
-$ sudo scutil --set LocalHostName zero-m3-max
+$ export NEW_HOSTNAME="zero-m3-max"
+$ sudo scutil --set HostName $NEW_HOSTNAME.localdomain
+$ sudo scutil --set LocalHostName $NEW_HOSTNAME
+$ sudo scutil --set ComputerName $NEW_HOSTNAME
 $ export NIX_CONFIG="experimental-features = nix-command flakes"
 $ xcode-select --install
 $ softwareupdate --install-rosetta

@@ -21,7 +21,8 @@ pkgs: {
     lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
     lola = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
     pl = "pull";
-    pr = "pull -r";
+    pr = "pull --rebase";
+    pra = "pull --rebase --autostash";
     ps = "push";
     psf = "push -f";
     rb = "rebase";

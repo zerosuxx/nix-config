@@ -149,7 +149,11 @@
       lockfiles = true;
     };
 
-    brews = [ "qemu" "mas" "coreutils" ];
+    brews = [ 
+      "qemu"
+      "mas"
+      "coreutils"
+    ];
 
     casks = [
       "docker"
@@ -168,6 +172,7 @@
     masApps = {
       Flyecut = 442160987;
       Bitwarden = 1352778147;
+      Twingate = 1501592214;
     };
   };
 
