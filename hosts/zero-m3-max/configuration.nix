@@ -161,6 +161,7 @@
       "google-chrome"
       "iterm2"
       "jetbrains-toolbox"
+      "microsoft-outlook"
       "microsoft-teams"
       "slack"
       "sublime-text"
