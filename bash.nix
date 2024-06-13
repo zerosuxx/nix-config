@@ -1,4 +1,4 @@
-pkgs: configName: {
+pkgs: {
   enable = true;
 
   initExtra = ''

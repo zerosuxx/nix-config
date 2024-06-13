@@ -1,12 +1,12 @@
-{ config, lib, pkgs, specialArgs, ... }:
+{ lib, pkgs, specialArgs, ... }:
 
 let
   inherit (lib) mkIf;
   inherit (pkgs.stdenv) isLinux isDarwin;
-  inherit (specialArgs) configName;
+  # inherit (specialArgs) configName;
 
-  bashSettings = import ./bash.nix pkgs configName;
-  zshSettings = import ./zsh.nix pkgs configName;
+  bashSettings = import ./bash.nix pkgs;
+  zshSettings = import ./zsh.nix pkgs;
   gitSettings = import ./git.nix pkgs;
   packages = import ./packages.nix pkgs;
   variables = import ./variables.nix;
@@ -16,10 +16,10 @@ in
   # nixpkgs.config.allowUnfree = true;
   # nixpkgs.overlays = [ ];
 
+  home.homeDirectory = mkIf(isLinux) (builtins.getEnv "HOME");
+  home.username = mkIf(isLinux) (builtins.getEnv "USER");
   home.packages = packages;
-  home.homeDirectory = builtins.getEnv "HOME";
-  home.username = builtins.getEnv "USER";
-  home.stateVersion = "23.11";
+  home.stateVersion = "24.05";
   home.sessionVariables = variables;
   home.sessionPath = [
     "$HOME/.local/bin"

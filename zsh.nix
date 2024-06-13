@@ -1,4 +1,4 @@
-pkgs: configName: {
+pkgs: {
   enable = true;
   autosuggestion.enable = true;
   syntaxHighlighting.enable = true;
@@ -18,8 +18,11 @@ pkgs: configName: {
     nfl = "nix flake lock";
     nfu = "nix flake update";
     nflu = "nix flake lock --update-input";
-    sw = "cd ${builtins.getEnv "PWD"} && sh scripts/hm-switch.sh ${configName}";
+    # sw = "cd ${builtins.getEnv "PWD"} && sh scripts/hm-switch.sh ${configName}";
+    rld = "darwin-rebuild switch --flake ~/nix-config";
+    rlb = "darwin-rebuild switch --rollback --flake ~/nix-config";
     hm = "home-manager";
+    rmds = "find . -name '.DS_Store' -type f -delete";
   };
   
   initExtra = ''
