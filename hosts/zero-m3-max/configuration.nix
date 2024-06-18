@@ -170,6 +170,7 @@
       "jetbrains-toolbox"
       "microsoft-outlook"
       "microsoft-teams"
+      "postman"
       "slack"
       "sublime-text"
       "transmission"
