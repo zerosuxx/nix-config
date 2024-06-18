@@ -52,6 +52,7 @@
         launchanim = true;
         # mouse-over-hilite-stack = true;
         orientation = "bottom";
+        # persist-apps = [];
       };
 
       screencapture.location = "~/Pictures";
@@ -153,6 +154,12 @@
       "qemu"
       "mas"
       "coreutils"
+    ];
+
+    taps = [
+      # "homebrew/core"
+      # "homebrew/cask"
+      "homebrew/bundle"
     ];
 
     casks = [
