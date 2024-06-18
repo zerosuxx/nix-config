@@ -1,12 +1,12 @@
 { pkgs, lib, inputs, ... }:
+let
+    username = "tmohos";
+in
 {
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
-  users.users.tmohos.home = "/Users/tmohos";
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
-  #environment.systemPackages =
-  # [ pkgs.vim ];
+  users.users.${username}.home = "/Users/${username}";
+  nixpkgs.hostPlatform = "aarch64-darwin";
 
   nix.package = pkgs.nix;
 
@@ -52,14 +52,33 @@
         launchanim = true;
         # mouse-over-hilite-stack = true;
         orientation = "bottom";
-        # persist-apps = [];
+        persistent-apps = [
+          # "/System/Library/CoreServices/Finder.app"
+          "/Applications/iTerm.app"
+          "/Applications/Firefox.app"
+          "/Applications/Google Chrome.app"
+          "/Applications/Slack.app"
+          "/Applications/Microsoft Outlook.app"
+          "/Users/${username}/Applications/WebStorm.app"
+          "/Users/${username}/Applications/IntelliJ IDEA Ultimate.app"
+          "/Users/${username}/Applications/Fleet.app"
+          "/Applications/Visual Studio Code.app"
+          "/Applications/Sublime Text.app"
+          "/System/Applications/Utilities/Activity Monitor.app"
+          "/System/Applications/Calendar.app"
+          "/System/Applications/Launchpad.app"
+          "/System/Applications/System Settings.app"
+          "/System/Applications/Reminders.app"
+          "/System/Applications/Notes.app"
+          "/System/Applications/App Store.app"
+        ];
       };
 
       screencapture.location = "~/Pictures";
       screensaver.askForPasswordDelay = 10;
 
       NSGlobalDomain = {
-        AppleShowAllExtensions = true;
+        AppleShowAllExtensions = false;
         ApplePressAndHoldEnabled = false;
 
         # 120, 90, 60, 30, 12, 6, 2
@@ -73,9 +92,8 @@
         AppleGlobalDomain = {
           NSQuitAlwaysKeepsWindows = 1;
         };
-        # TODO: hide spotlight
         "com.apple.Spotlight" = {
-          engagementCount-com.apple.Spotlight = 82;
+          MenuItemHidden = 1;
         };
         "com.apple.dock" = {
           showAppExposeGestureEnabled = 1;
@@ -132,10 +150,6 @@
 
   nix.configureBuildUsers = true;
 
-  # The platform the configuration will be used on.
-  nixpkgs.hostPlatform = "aarch64-darwin";
-
-
   homebrew = {
     enable = true;
     onActivation = {
@@ -184,5 +198,4 @@
       Twingate = 1501592214;
     };
   };
-
 }
