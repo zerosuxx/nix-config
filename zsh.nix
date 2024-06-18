@@ -1,7 +1,7 @@
 pkgs: {
   enable = true;
   autosuggestion.enable = true;
-  syntaxHighlighting.enable = true;
+  syntaxHighlighting.enable = false;
   enableCompletion = true;
 
   shellAliases = {
@@ -28,7 +28,8 @@ pkgs: {
   initExtra = ''
     ${if builtins.hasAttr "tzdata" pkgs then ''[[ -z "$TZDIR" ]] && export TZDIR="${pkgs.tzdata}/share/zoneinfo"'' else ""}
 
-    zstyle ':completion:*:*:make:*' tag-order 'targets'
+    zstyle ":completion:*:*:make:*" tag-order "targets"
+    zstyle ":completion:*" matcher-list "" "m:{a-zA-Z}={A-Za-z}"
   '';
 
   plugins = [
