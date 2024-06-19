@@ -18,11 +18,12 @@ pkgs: {
     nfl = "nix flake lock";
     nfu = "nix flake update";
     nflu = "nix flake lock --update-input";
+    hm = "home-manager";
     # sw = "cd ${builtins.getEnv "PWD"} && sh scripts/hm-switch.sh ${configName}";
     rld = "darwin-rebuild switch --flake ~/nix-config";
     rlb = "darwin-rebuild switch --rollback --flake ~/nix-config";
-    hm = "home-manager";
     rmds = "find . -name '.DS_Store' -type f -delete";
+    dutop = "du -h -x -d 1 .";
   };
   
   initExtra = ''
