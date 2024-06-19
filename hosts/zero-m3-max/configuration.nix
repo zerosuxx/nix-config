@@ -171,8 +171,6 @@ in
     ];
 
     taps = [
-      # "homebrew/core"
-      # "homebrew/cask"
       "homebrew/bundle"
     ];
 
@@ -185,6 +183,7 @@ in
       "microsoft-outlook"
       "microsoft-teams"
       "postman"
+      "proxyman"
       "slack"
       "sublime-text"
       "transmission"
