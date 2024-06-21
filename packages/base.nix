@@ -14,6 +14,7 @@ pkgs: with pkgs; [
   # less
   # libuuid
   nodejs_20
+  corepack_20.out
   nano
   oh-my-zsh
   openssh
