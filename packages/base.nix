@@ -9,6 +9,7 @@ pkgs: with pkgs; [
   gnupg
   gnumake
   gnused
+  gzip
   htop
   jq
   # less
