@@ -23,6 +23,7 @@ in
   home.sessionVariables = variables;
   home.sessionPath = [
     "$HOME/.local/bin"
+    "$HOME/go/bin"
   ];
 
   home.activation = mkIf (isTermux) {
