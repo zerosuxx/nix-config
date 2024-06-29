@@ -28,6 +28,7 @@ pkgs: with pkgs; [
   # nix-update
   nixpkgs-fmt
   # nixpkgs-review
+  ripgrep
   tzdata
   wget
   xclip
