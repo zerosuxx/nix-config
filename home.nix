@@ -8,6 +8,7 @@ let
   bashSettings = import ./bash.nix pkgs;
   zshSettings = import ./zsh.nix pkgs;
   gitSettings = import ./git.nix pkgs;
+  k9sSettings = import ./modules/k9s.nix pkgs;
   packages = import ./packages.nix pkgs;
   variables = import ./variables.nix;
   isTermux = builtins.getEnv "TERMUX_VERSION" != "";
@@ -72,5 +73,7 @@ in
     };
 
     zsh = zshSettings;
+
+    k9s = k9sSettings;
   };
 }
