@@ -18,7 +18,7 @@ pkgs: configName: {
     nfl = "nix flake lock";
     nfu = "nix flake update";
     nflu = "nix flake lock --update-input";
-    sw = "cd ${builtins.getEnv "PWD"} && sh scripts/hm-switch.sh ${configName}";
+    sw = "home-manager switch --flake ${builtins.getEnv "PWD"} --impure";
     hm = "home-manager";
   };
   

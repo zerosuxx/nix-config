@@ -1,5 +1,5 @@
 {
-  "nix-on-droid@termux/arm64" = {
+  "nix-on-droid@localhost" = {
     system = "aarch64-linux";
     config = { };
   };
