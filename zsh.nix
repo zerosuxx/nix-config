@@ -13,13 +13,11 @@ pkgs: configName: {
     k = "kubectl";
     d = "docker";
     dc = "docker compose";
-    gco = "git checkout";
-    gst = "git status";
     nfl = "nix flake lock";
     nfu = "nix flake update";
     nflu = "nix flake lock --update-input";
-    sw = "home-manager switch --flake ${builtins.getEnv "PWD"} --impure";
-    hm = "home-manager";
+    rld = "${if pkgs.stdenv.hostPlatform.isDarwin then "darwin-rebuild" else "home-manager"} switch --impure --flake ~/nix-config";
+    rlb = "${if pkgs.stdenv.hostPlatform.isDarwin then "darwin-rebuild" else "home-manager"} switch --impure --rollback --flake ~/nix-config";
   };
   
   initExtra = ''

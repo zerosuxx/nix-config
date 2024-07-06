@@ -9,8 +9,7 @@ $ nix-shell -p git openssh --run "git clone https://github.com/zerosuxx/nix-conf
 
 ### Bootstrap
 ```shell
-$ sh scripts/install-home-manager.sh
-$ nix-shell -p git --run "sh scripts/hm-switch.sh $target"
+$ nix run home-manager -- switch --impure --flake .
 ```
 
 ### Update flake
