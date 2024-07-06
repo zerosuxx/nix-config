@@ -22,7 +22,7 @@ $ sudo scutil --set ComputerName $NEW_HOSTNAME
 $ export NIX_CONFIG="experimental-features = nix-command flakes"
 $ xcode-select --install
 $ softwareupdate --install-rosetta
-$ nix run nix-darwin -- switch --flake ~/nix-config
+$ nix run nix-darwin -- switch --impure --flake .
 ```
 
 ### Update flake
