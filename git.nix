@@ -1,6 +1,8 @@
 pkgs: {
   enable = true;
-  lfs.enable = true;
+  lfs = {
+    enable = true;
+  };
   userName = "Tamas Mohos";
   userEmail = "zerosuxx@gmail.com";
   aliases = {
@@ -35,10 +37,21 @@ pkgs: {
     st = "status";
   };
   extraConfig = {
+    git = {
+      path = toString pkgs.git;
+    };
     pull = {
       rebase = true;
     };
-    git.path = toString pkgs.git;
+    commit = {
+      gpgsign = true;
+    };
+    gpg = {
+      format = "ssh";
+    };
+    user = {
+      signingkey = "~/.ssh/id_rsa.pub";
+    };
   };
   includes = [ ];
 }
