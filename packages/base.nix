@@ -28,6 +28,7 @@ pkgs: with pkgs; [
   # nix-update
   nixpkgs-fmt
   # nixpkgs-review
+  python3.out
   ripgrep
   tzdata
   wget
