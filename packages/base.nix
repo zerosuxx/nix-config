@@ -1,5 +1,6 @@
 pkgs: with pkgs; [
   bash-completion
+  corepack_20.out
   curl
   file.out
   devbox
@@ -13,6 +14,7 @@ pkgs: with pkgs; [
   # less
   # libuuid
   nano
+  nodejs_20
   oh-my-zsh
   openssh
   openssl
