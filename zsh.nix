@@ -1,4 +1,4 @@
-pkgs: configName: {
+pkgs: configName: isTermux: {
   enable = true;
   autosuggestion.enable = true;
   syntaxHighlighting.enable = true;
@@ -22,6 +22,10 @@ pkgs: configName: {
   
   initExtra = ''
     ${if builtins.hasAttr "tzdata" pkgs then ''[[ -z "$TZDIR" ]] && export TZDIR="${pkgs.tzdata}/share/zoneinfo"'' else ""}
+    ${if isTermux then ''
+      export PATH=/system/bin:$PATH
+      export NPM_CONFIG_PREFIX=~/.npm
+    '' else ""}
 
     zstyle ':completion:*:*:make:*' tag-order 'targets'
   '';
