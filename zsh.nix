@@ -31,6 +31,7 @@ pkgs: {
 
     zstyle ":completion:*:*:make:*" tag-order "targets"
     zstyle ":completion:*" matcher-list "" "m:{a-zA-Z}={A-Za-z}"
+    zle_bracketed_paste=()
   '';
 
   plugins = [
