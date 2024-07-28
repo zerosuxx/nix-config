@@ -168,6 +168,7 @@ in
       "qemu"
       "mas"
       "coreutils"
+      "dagger"
     ];
 
     taps = [
