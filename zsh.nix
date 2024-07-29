@@ -11,6 +11,7 @@ pkgs: {
     "...." = "cd ../../..";
     g = "git";
     k = "kubectl";
+    kctx = "kubectx";
     d = "docker";
     dc = "docker compose";
     gco = "git checkout";
