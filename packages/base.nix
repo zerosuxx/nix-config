@@ -4,6 +4,7 @@ pkgs: with pkgs; [
   curl
   file.out
   devbox
+  dig.dnsutils
   # glibc.bin
   git
   gnupg
