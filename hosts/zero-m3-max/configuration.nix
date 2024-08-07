@@ -189,6 +189,7 @@ in
       "sublime-text"
       "transmission"
       "vlc"
+      "vnc-viewer"
       "visual-studio-code"
     ];
 
