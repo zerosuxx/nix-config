@@ -16,8 +16,6 @@ pkgs: with pkgs; [
   jq
   # less
   # libuuid
-  nodejs_20
-  corepack_20.out
   nano
   nodejs_20
   oh-my-zsh

@@ -6,7 +6,6 @@ let
   # inherit (specialArgs) configName;
 
   isTermux = builtins.getEnv "TERMUX_VERSION" != "";
-  bashSettings = import ./bash.nix pkgs configName;
   zshSettings = import ./zsh.nix pkgs configName isTermux;
   gitSettings = import ./git.nix pkgs;
   k9sSettings = import ./modules/k9s.nix pkgs;
@@ -41,12 +40,10 @@ in
       enable = true;
     };
 
-    bash = mkIf(isLinux) bashSettings;
     git = gitSettings;
 
     direnv = {
       enable = true;
-      enableBashIntegration = true;
       enableZshIntegration = true;
       nix-direnv.enable = true;
     };

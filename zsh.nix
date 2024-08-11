@@ -1,7 +1,7 @@
 pkgs: configName: isTermux: {
   enable = true;
   autosuggestion.enable = true;
-  syntaxHighlighting.enable = false;
+  syntaxHighlighting.enable = true;
   enableCompletion = true;
 
   shellAliases = {
