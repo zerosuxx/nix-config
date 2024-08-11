@@ -1,10 +1,6 @@
 {
   description = "My Nix configurations";
 
-  #  nixConfig = {
-  #    experimental-features = [ "nix-command" "flakes" ];
-  #  };
-
   inputs = {
     utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
@@ -22,18 +18,6 @@
     };
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-    homebrew-core = {
-      url = "github:homebrew/homebrew-core";
-      flake = false;
-    };
-    homebrew-cask = {
-      url = "github:homebrew/homebrew-cask";
-      flake = false;
-    };
-    homebrew-bundle = {
-      url = "github:homebrew/homebrew-bundle";
-      flake = false;
-    };
   };
 
   outputs = inputs@{ self, utils, nixpkgs, nix-index-database, home-manager, nix-darwin, nix-homebrew, ... }:
@@ -83,13 +67,6 @@
 
                 # User owning the Homebrew prefix
                 user = "tmohos";
-
-                # Optional: Declarative tap management
-                # taps = {
-                #   "homebrew/homebrew-core" = inputs.homebrew-core;
-                #   "homebrew/homebrew-cask" = inputs.homebrew-cask;
-                #   "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
-                # };
 
                 # Optional: Enable fully-declarative tap management
                 #
