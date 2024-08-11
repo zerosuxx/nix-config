@@ -71,6 +71,13 @@ in
       enableZshIntegration = true;
     };
 
+    bash = mkIf(isLinux) {
+      enable = true;
+      initExtra = ''
+        exec zsh;
+      '';
+    };
+
     zsh = zshSettings;
 
     k9s = k9sSettings;
