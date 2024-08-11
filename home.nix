@@ -1,14 +1,14 @@
-{ config, lib, pkgs, specialArgs, ... }:
+{ lib, pkgs, specialArgs, ... }:
 
 let
   inherit (lib) mkIf;
   inherit (pkgs.stdenv) isLinux isDarwin;
-  inherit (specialArgs) configName;
+  # inherit (specialArgs) configName;
 
   isTermux = builtins.getEnv "TERMUX_VERSION" != "";
-  bashSettings = import ./bash.nix pkgs configName;
   zshSettings = import ./zsh.nix pkgs configName isTermux;
   gitSettings = import ./git.nix pkgs;
+  k9sSettings = import ./modules/k9s.nix pkgs;
   packages = import ./packages.nix pkgs;
   variables = import ./variables.nix;
 in
@@ -16,13 +16,14 @@ in
   # nixpkgs.config.allowUnfree = true;
   # nixpkgs.overlays = [ ];
 
+  home.homeDirectory = mkIf(isLinux) (builtins.getEnv "HOME");
+  home.username = mkIf(isLinux) (builtins.getEnv "USER");
   home.packages = packages;
-  home.homeDirectory = builtins.getEnv "HOME";
-  home.username = builtins.getEnv "USER";
-  home.stateVersion = "23.11";
+  home.stateVersion = "24.05";
   home.sessionVariables = variables;
   home.sessionPath = [
     "$HOME/.local/bin"
+    "$HOME/go/bin"
   ];
 
   home.activation = mkIf (isTermux) {
@@ -39,12 +40,10 @@ in
       enable = true;
     };
 
-    bash = mkIf(isLinux) bashSettings;
     git = gitSettings;
 
     direnv = {
       enable = true;
-      enableBashIntegration = true;
       enableZshIntegration = true;
       nix-direnv.enable = true;
     };
@@ -73,5 +72,7 @@ in
     };
 
     zsh = zshSettings;
+
+    k9s = k9sSettings;
   };
 }

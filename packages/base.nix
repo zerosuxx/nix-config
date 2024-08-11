@@ -6,10 +6,12 @@ pkgs: with pkgs; [
   devbox
   dig.dnsutils
   # glibc.bin
+  go
   git
   gnupg
   gnumake
   gnused
+  gzip
   htop
   jq
   # less
@@ -27,6 +29,8 @@ pkgs: with pkgs; [
   # nix-update
   nixpkgs-fmt
   # nixpkgs-review
+  python3.out
+  ripgrep
   tzdata
   wget
   xclip

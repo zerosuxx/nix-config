@@ -1,6 +1,8 @@
 pkgs: {
   enable = true;
-  lfs.enable = true;
+  lfs = {
+    enable = true;
+  };
   userName = "Tamas Mohos";
   userEmail = "zerosuxx@gmail.com";
   aliases = {
@@ -21,7 +23,8 @@ pkgs: {
     lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
     lola = "log --graph --decorate --pretty=oneline --abbrev-commit --all";
     pl = "pull";
-    pr = "pull -r";
+    pr = "pull --rebase";
+    pra = "pull --rebase --autostash";
     ps = "push";
     psf = "push -f";
     rb = "rebase";
@@ -34,10 +37,21 @@ pkgs: {
     st = "status";
   };
   extraConfig = {
+    git = {
+      path = toString pkgs.git;
+    };
     pull = {
       rebase = true;
     };
-    git.path = toString pkgs.git;
+    commit = {
+      gpgsign = true;
+    };
+    gpg = {
+      format = "ssh";
+    };
+    user = {
+      signingkey = "~/.ssh/id_rsa.pub";
+    };
   };
   includes = [ ];
 }

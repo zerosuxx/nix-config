@@ -11,11 +11,15 @@ pkgs: configName: isTermux: {
     "...." = "cd ../../..";
     g = "git";
     k = "kubectl";
+    kctx = "kubectx";
     d = "docker";
     dc = "docker compose";
     nfl = "nix flake lock";
     nfu = "nix flake update";
     nflu = "nix flake lock --update-input";
+    hm = "home-manager";
+    rmds = "find . -name '.DS_Store' -type f -delete";
+    dutop = "du -h -x -d 1 .";
     rld = "${if pkgs.stdenv.hostPlatform.isDarwin then "darwin-rebuild" else "home-manager"} switch --impure --flake ~/nix-config";
     rlb = "${if pkgs.stdenv.hostPlatform.isDarwin then "darwin-rebuild" else "home-manager"} switch --impure --rollback --flake ~/nix-config";
   };
@@ -27,7 +31,9 @@ pkgs: configName: isTermux: {
       export NPM_CONFIG_PREFIX=~/.npm
     '' else ""}
 
-    zstyle ':completion:*:*:make:*' tag-order 'targets'
+    zstyle ":completion:*:*:make:*" tag-order "targets"
+    zstyle ":completion:*" matcher-list "" "m:{a-zA-Z}={A-Za-z}"
+    zle_bracketed_paste=()
   '';
 
   plugins = [
