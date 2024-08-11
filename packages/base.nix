@@ -1,8 +1,10 @@
 pkgs: with pkgs; [
   bash-completion
+  corepack_20.out
   curl
   file.out
   devbox
+  dig.dnsutils
   # glibc.bin
   go
   git
@@ -17,6 +19,7 @@ pkgs: with pkgs; [
   nodejs_20
   corepack_20.out
   nano
+  nodejs_20
   oh-my-zsh
   openssh
   openssl

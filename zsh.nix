@@ -1,4 +1,4 @@
-pkgs: {
+pkgs: configName: isTermux: {
   enable = true;
   autosuggestion.enable = true;
   syntaxHighlighting.enable = false;
@@ -14,21 +14,22 @@ pkgs: {
     kctx = "kubectx";
     d = "docker";
     dc = "docker compose";
-    gco = "git checkout";
-    gst = "git status";
     nfl = "nix flake lock";
     nfu = "nix flake update";
     nflu = "nix flake lock --update-input";
     hm = "home-manager";
-    # sw = "cd ${builtins.getEnv "PWD"} && sh scripts/hm-switch.sh ${configName}";
-    rld = "darwin-rebuild switch --flake ~/nix-config";
-    rlb = "darwin-rebuild switch --rollback --flake ~/nix-config";
     rmds = "find . -name '.DS_Store' -type f -delete";
     dutop = "du -h -x -d 1 .";
+    rld = "${if pkgs.stdenv.hostPlatform.isDarwin then "darwin-rebuild" else "home-manager"} switch --impure --flake ~/nix-config";
+    rlb = "${if pkgs.stdenv.hostPlatform.isDarwin then "darwin-rebuild" else "home-manager"} switch --impure --rollback --flake ~/nix-config";
   };
   
   initExtra = ''
     ${if builtins.hasAttr "tzdata" pkgs then ''[[ -z "$TZDIR" ]] && export TZDIR="${pkgs.tzdata}/share/zoneinfo"'' else ""}
+    ${if isTermux then ''
+      export PATH=/system/bin:$PATH
+      export NPM_CONFIG_PREFIX=~/.npm
+    '' else ""}
 
     zstyle ":completion:*:*:make:*" tag-order "targets"
     zstyle ":completion:*" matcher-list "" "m:{a-zA-Z}={A-Za-z}"

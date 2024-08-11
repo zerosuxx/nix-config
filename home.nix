@@ -5,13 +5,13 @@ let
   inherit (pkgs.stdenv) isLinux isDarwin;
   # inherit (specialArgs) configName;
 
-  bashSettings = import ./bash.nix pkgs;
-  zshSettings = import ./zsh.nix pkgs;
+  isTermux = builtins.getEnv "TERMUX_VERSION" != "";
+  bashSettings = import ./bash.nix pkgs configName;
+  zshSettings = import ./zsh.nix pkgs configName isTermux;
   gitSettings = import ./git.nix pkgs;
   k9sSettings = import ./modules/k9s.nix pkgs;
   packages = import ./packages.nix pkgs;
   variables = import ./variables.nix;
-  isTermux = builtins.getEnv "TERMUX_VERSION" != "";
 in
 {
   # nixpkgs.config.allowUnfree = true;
@@ -28,9 +28,11 @@ in
   ];
 
   home.activation = mkIf (isTermux) {
-    termuxProperties = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    termuxInit = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       run mkdir -p "$HOME/.termux" && cat "${builtins.toString ./dotfiles/termux/termux.properties}" > "$HOME/.termux/termux.properties" && cat "${builtins.toString ./dotfiles/termux/colors.properties}" > "$HOME/.termux/colors.properties"
       run ln -f -s /android/system/bin/linker64 /system/bin/linker64
+      run ln -f -s /android/system/bin/ping /system/bin/ping
+      run mkdir -p ~/.npm/lib
     '';
   };
 
