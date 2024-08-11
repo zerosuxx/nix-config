@@ -6,7 +6,7 @@ let
   # inherit (specialArgs) configName;
 
   isTermux = builtins.getEnv "TERMUX_VERSION" != "";
-  zshSettings = import ./zsh.nix pkgs configName isTermux;
+  zshSettings = import ./zsh.nix pkgs isTermux;
   gitSettings = import ./git.nix pkgs;
   k9sSettings = import ./modules/k9s.nix pkgs;
   packages = import ./packages.nix pkgs;

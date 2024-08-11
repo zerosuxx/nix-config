@@ -1,4 +1,4 @@
-pkgs: configName: isTermux: {
+pkgs: isTermux: {
   enable = true;
   autosuggestion.enable = true;
   syntaxHighlighting.enable = true;
