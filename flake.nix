@@ -22,6 +22,7 @@
 
   outputs = inputs@{ self, utils, nixpkgs, nix-index-database, home-manager, nix-darwin, nix-homebrew, ... }:
     let
+      username = builtins.getEnv "USER";
       pkgsForSystem = system:
         import nixpkgs {
           inherit system;
@@ -66,7 +67,7 @@
                 enableRosetta = true;
 
                 # User owning the Homebrew prefix
-                user = "tmohos";
+                user = username;
 
                 # Optional: Enable fully-declarative tap management
                 #
@@ -81,14 +82,14 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.tmohos = import ./home.nix;
+              home-manager.users.${username} = import ./home.nix;
 
               # Optionally, use home-manager.extraSpecialArgs to pass
               # arguments to home.nix
               home-manager.extraSpecialArgs = { specialArgs = { }; };
             }
           ];
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs; config = { inherit username; }; };
         };
       };
     };

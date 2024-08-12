@@ -1,6 +1,7 @@
-{ pkgs, lib, inputs, ... }:
+{ pkgs, lib, inputs, config, ... }:
 let
-    username = "tmohos";
+    username = config.username;
+    homebrew = import ../../packages/darwin.nix;
 in
 {
   # Auto upgrade nix package and the daemon service.
@@ -164,40 +165,9 @@ in
       lockfiles = true;
     };
 
-    brews = [ 
-      "qemu"
-      "mas"
-      "coreutils"
-      "dagger"
-    ];
-
-    taps = [
-      "homebrew/bundle"
-    ];
-
-    casks = [
-      "docker"
-      "firefox"
-      "google-chrome"
-      "iterm2"
-      "jetbrains-toolbox"
-      "microsoft-outlook"
-      "microsoft-teams"
-      "postman"
-      "proxyman"
-      "slack"
-      "sublime-text"
-      "transmission"
-      "vlc"
-      "vnc-viewer"
-      "visual-studio-code"
-    ];
-
-    masApps = {
-      Flyecut = 442160987;
-      Bitwarden = 1352778147;
-      Twingate = 1501592214;
-      Wireguard = 1451685025;
-    };
+    brews = homebrew.brews;
+    taps = homebrew.taps;
+    casks = homebrew.casks;
+    masApps = homebrew.masApps;
   };
 }
