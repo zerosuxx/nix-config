@@ -12,16 +12,16 @@
       url = "github:LnL7/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
   };
 
-  outputs = inputs@{ self, utils, nixpkgs, nix-index-database, home-manager, nix-darwin, nix-homebrew, ... }:
+  outputs = inputs@{ self, utils, nixpkgs, nix-index-database, nix-darwin, nix-homebrew, home-manager, ... }:
     let
+      username = builtins.getEnv "USER";
       pkgsForSystem = system:
         import nixpkgs {
           inherit system;
@@ -59,36 +59,32 @@
             nix-homebrew.darwinModules.nix-homebrew
             {
               nix-homebrew = {
-                # Install Homebrew under the default prefix
                 enable = true;
-
-                # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
                 enableRosetta = true;
-
-                # User owning the Homebrew prefix
-                user = "tmohos";
+                user = username;
 
                 # Optional: Enable fully-declarative tap management
                 #
                 # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
                 mutableTaps = true;
-
                 autoMigrate = true;
               };
             }
             ./hosts/zero-m3-max/configuration.nix
             home-manager.darwinModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.tmohos = import ./home.nix;
-
-              # Optionally, use home-manager.extraSpecialArgs to pass
-              # arguments to home.nix
-              home-manager.extraSpecialArgs = { specialArgs = { }; };
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.${username} = import ./home.nix;
+                extraSpecialArgs = { specialArgs = { }; };
+              };
             }
           ];
-          specialArgs = { inherit inputs; };
+          specialArgs = { 
+            inherit inputs;
+            cfg = { inherit username; };
+          };
         };
       };
     };
