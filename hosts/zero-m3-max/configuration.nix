@@ -1,7 +1,7 @@
-{ pkgs, lib, inputs, config, ... }:
+{ pkgs, lib, inputs, cfg, ... }:
 let
-    username = config.username;
-    homebrew = import ../../packages/darwin.nix;
+    username = cfg.username;
+    homebrew = import ../../packages/darwin.nix pkgs;
 in
 {
   # Auto upgrade nix package and the daemon service.
