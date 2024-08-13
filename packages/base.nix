@@ -31,6 +31,7 @@ pkgs: with pkgs; [
   # nixpkgs-review
   python3.out
   ripgrep
+  statix
   tzdata
   wget
   xclip

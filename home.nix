@@ -16,23 +16,25 @@ in
   # nixpkgs.config.allowUnfree = true;
   # nixpkgs.overlays = [ ];
 
-  home.homeDirectory = mkIf(isLinux) (builtins.getEnv "HOME");
-  home.username = mkIf(isLinux) (builtins.getEnv "USER");
-  home.packages = packages;
-  home.stateVersion = "24.05";
-  home.sessionVariables = variables;
-  home.sessionPath = [
-    "$HOME/.local/bin"
-    "$HOME/go/bin"
-  ];
+  home = {
+    homeDirectory = mkIf isLinux (builtins.getEnv "HOME");
+    username = mkIf isLinux (builtins.getEnv "USER");
+    inherit packages;
+    stateVersion = "24.05";
+    sessionVariables = variables;
+    sessionPath = [
+      "$HOME/.local/bin"
+      "$HOME/go/bin"
+    ];
 
-  home.activation = mkIf (isTermux) {
-    termuxInit = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      run mkdir -p "$HOME/.termux" && cat "${builtins.toString ./dotfiles/termux/termux.properties}" > "$HOME/.termux/termux.properties" && cat "${builtins.toString ./dotfiles/termux/colors.properties}" > "$HOME/.termux/colors.properties"
-      run ln -f -s /android/system/bin/linker64 /system/bin/linker64
-      run ln -f -s /android/system/bin/ping /system/bin/ping
-      run mkdir -p ~/.npm/lib
-    '';
+    activation = mkIf isTermux {
+      termuxInit = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        run mkdir -p "$HOME/.termux" && cat "${builtins.toString ./dotfiles/termux/termux.properties}" > "$HOME/.termux/termux.properties" && cat "${builtins.toString ./dotfiles/termux/colors.properties}" > "$HOME/.termux/colors.properties"
+        run ln -f -s /android/system/bin/linker64 /system/bin/linker64
+        run ln -f -s /android/system/bin/ping /system/bin/ping
+        run mkdir -p ~/.npm/lib
+      '';
+    };
   };
 
   programs = {
@@ -71,7 +73,7 @@ in
       enableZshIntegration = true;
     };
 
-    bash = mkIf(isLinux) {
+    bash = mkIf isLinux {
       enable = true;
       initExtra = ''
         exec zsh;

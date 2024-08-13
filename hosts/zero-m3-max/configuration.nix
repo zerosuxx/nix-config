@@ -1,6 +1,6 @@
 { pkgs, lib, inputs, cfg, ... }:
 let
-    username = cfg.username;
+    inherit (cfg) username;
     homebrew = import ../../packages/darwin.nix pkgs;
 in
 {
@@ -9,24 +9,38 @@ in
   users.users.${username}.home = "/Users/${username}";
   nixpkgs.hostPlatform = "aarch64-darwin";
 
-  nix.package = pkgs.nix;
+  nix = {
+    package = pkgs.nix;
+    extraOptions = ''
+      auto-optimise-store = true
+      experimental-features = nix-command flakes
+    '' + lib.optionalString (pkgs.system == "aarch64-darwin") ''
+      extra-platforms = x86_64-darwin aarch64-darwin
+    '';
+  };
+
+  # nix.package = pkgs.nix;
 
   # Enable experimental nix command and flakes
   # nix.package = pkgs.nixUnstable;
-  nix.extraOptions = ''
-    auto-optimise-store = true
-    experimental-features = nix-command flakes
-  '' + lib.optionalString (pkgs.system == "aarch64-darwin") ''
-    extra-platforms = x86_64-darwin aarch64-darwin
-  '';
+  # nix.extraOptions = ''
+  #   auto-optimise-store = true
+  #   experimental-features = nix-command flakes
+  # '' + lib.optionalString (pkgs.system == "aarch64-darwin") ''
+  #   extra-platforms = x86_64-darwin aarch64-darwin
+  # '';
 
-  # Create /etc/bashrc that loads the nix-darwin environment.
-  programs.zsh.enable = true;
-  programs.zsh.shellInit = ''
+  programs = {
+    zsh = {
+      enable = true;
+      shellInit = ''
     eval "$(/opt/homebrew/bin/brew shellenv)"
   '';
-
-  programs.nix-index.enable = true;
+    };
+    nix-index = {
+      enable = true;
+    };
+  };
 
   security.pam.enableSudoTouchIdAuth = true;
 
@@ -165,9 +179,9 @@ in
       lockfiles = true;
     };
 
-    brews = homebrew.brews;
-    taps = homebrew.taps;
-    casks = homebrew.casks;
-    masApps = homebrew.masApps;
+    inherit (homebrew) brews;
+    inherit (homebrew) taps;
+    inherit (homebrew) casks;
+    inherit (homebrew) masApps;
   };
 }
