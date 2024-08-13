@@ -17,6 +17,7 @@ pkgs: {
 
   casks = [
     "docker"
+    "https://raw.githubusercontent.com/zerosuxx/homebrew-tap/main/Casks/filezilla.rb"
     "firefox"
     "google-chrome"
     "iterm2"
