@@ -14,4 +14,5 @@ pkgs: with pkgs; [
     pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
   ])
   google-cloud-sql-proxy
+  teller
 ]
