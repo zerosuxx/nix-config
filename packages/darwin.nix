@@ -13,11 +13,12 @@ pkgs: {
 
   taps = [
     "homebrew/bundle"
+    "zerosuxx/tap"
   ];
 
   casks = [
     "docker"
-    "https://raw.githubusercontent.com/zerosuxx/homebrew-tap/main/Casks/filezilla.rb"
+    "filezilla"
     "firefox"
     "google-chrome"
     "iterm2"
