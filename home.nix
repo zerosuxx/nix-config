@@ -3,7 +3,6 @@
 let
   inherit (lib) mkIf;
   inherit (pkgs.stdenv) isLinux isDarwin;
-  # inherit (specialArgs) configName;
 
   isTermux = builtins.getEnv "TERMUX_VERSION" != "";
   zshSettings = import ./zsh.nix pkgs isTermux;
@@ -13,9 +12,6 @@ let
   variables = import ./variables.nix;
 in
 {
-  # nixpkgs.config.allowUnfree = true;
-  # nixpkgs.overlays = [ ];
-
   home = {
     homeDirectory = mkIf isLinux (builtins.getEnv "HOME");
     username = mkIf isLinux (builtins.getEnv "USER");
