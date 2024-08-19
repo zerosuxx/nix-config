@@ -8,6 +8,7 @@ let
 in
 {
   imports = [
+    ./home/bash.nix
     ./home/git.nix
     ./home/k9s.nix
     ./home/packages.nix
@@ -68,13 +69,6 @@ in
     fzf = {
       enable = true;
       enableZshIntegration = true;
-    };
-
-    bash = mkIf isLinux {
-      enable = true;
-      initExtra = ''
-        exec zsh;
-      '';
     };
   };
 }
