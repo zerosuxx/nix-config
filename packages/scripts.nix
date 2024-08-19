@@ -12,4 +12,8 @@ pkgs: with pkgs; [
   (writeShellScriptBin "used-port" ''
     lsof -i "tcp:$@"
   '')
+  
+  (writeShellScriptBin "kube-merge-config" ''
+    KUBECONFIG=~/.kube/config:$1 kubectl config view --flatten
+  '')
 ]

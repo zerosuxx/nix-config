@@ -5,19 +5,22 @@ let
   inherit (pkgs.stdenv) isLinux isDarwin;
 
   isTermux = builtins.getEnv "TERMUX_VERSION" != "";
-  zshSettings = import ./zsh.nix pkgs isTermux;
-  gitSettings = import ./git.nix pkgs;
-  k9sSettings = import ./modules/k9s.nix pkgs;
-  packages = import ./packages.nix pkgs;
-  variables = import ./variables.nix;
 in
 {
+  imports = [
+    ./home/git.nix
+    ./home/k9s.nix
+    ./home/packages.nix
+    ./home/variables.nix
+    ./home/zsh.nix
+  ] ++ lib.optional (builtins.pathExists ./home/ssh.nix) ./home/ssh.nix;
+  
+  zshModule.isTermux = isTermux;
+  
   home = {
     homeDirectory = mkIf isLinux (builtins.getEnv "HOME");
     username = mkIf isLinux (builtins.getEnv "USER");
-    inherit packages;
     stateVersion = "24.05";
-    sessionVariables = variables;
     sessionPath = [
       "$HOME/.local/bin"
       "$HOME/go/bin"
@@ -37,8 +40,6 @@ in
     home-manager = {
       enable = true;
     };
-
-    git = gitSettings;
 
     direnv = {
       enable = true;
@@ -75,9 +76,5 @@ in
         exec zsh;
       '';
     };
-
-    zsh = zshSettings;
-
-    k9s = k9sSettings;
   };
 }
