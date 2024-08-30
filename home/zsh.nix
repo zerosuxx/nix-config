@@ -11,7 +11,7 @@
       enableCompletion = true;
     
       shellAliases = {
-        ll = "ls -alF";
+        ll = "ls -alhF";
         ".." = "cd ..";
         "..." = "cd ../..";
         "...." = "cd ../../..";
