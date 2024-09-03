@@ -20,6 +20,7 @@
         kctx = "kubectx";
         d = "docker";
         dc = "docker compose";
+        db = "devbox";
         nfl = "nix flake lock";
         nfu = "nix flake update";
         nflu = "nix flake lock --update-input";
