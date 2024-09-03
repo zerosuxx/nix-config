@@ -9,6 +9,7 @@ pkgs: with pkgs; [
   go
   git
   gnupg
+  gnugrep
   gnumake
   gnused
   gzip
