@@ -9,6 +9,7 @@
   home.sessionVariables = {
     # nix
     NIX_CONFIG = "experimental-features = nix-command flakes";
+    NIXPKGS_ALLOW_UNFREE = "1";
 
     # shell
     EDITOR = "nano";
