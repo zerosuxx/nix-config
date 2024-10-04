@@ -23,8 +23,8 @@ in
     zsh = {
       enable = true;
       shellInit = ''
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-  '';
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+      '';
     };
     nix-index = {
       enable = true;

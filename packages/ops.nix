@@ -15,4 +15,5 @@ pkgs: with pkgs; [
   ])
   google-cloud-sql-proxy
   teller
+  terraform
 ]
