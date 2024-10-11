@@ -9,11 +9,15 @@ pkgs: {
     "mas"
     "coreutils"
     "dagger"
+    "detect-secrets"
+    "stripe"
+    "pulumi"
   ];
 
   taps = [
     "homebrew/bundle"
     "zerosuxx/tap"
+    "stripe/stripe-cli"
   ];
 
   casks = [
@@ -40,5 +44,6 @@ pkgs: {
     Bitwarden = 1352778147;
     Twingate = 1501592214;
     Wireguard = 1451685025;
+    RemarkableDesktop = 1276493162;
   };
 }
