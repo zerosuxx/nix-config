@@ -4,7 +4,7 @@
     config = { };
   };
 
-  "zero@home-pc-zero" = {
+  "zero@home-zero-linux-pc" = {
     system = "x86_64-linux";
     config = { };
   };

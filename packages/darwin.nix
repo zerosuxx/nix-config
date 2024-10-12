@@ -9,9 +9,7 @@ pkgs: {
     "mas"
     "coreutils"
     "dagger"
-    "detect-secrets"
     "stripe"
-    "pulumi"
   ];
 
   taps = [

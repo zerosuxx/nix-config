@@ -9,6 +9,7 @@ $ nix-shell -p git openssh --run "git clone https://github.com/zerosuxx/nix-conf
 
 ### Bootstrap with Home Manager
 ```shell
+$ export NIX_CONFIG="experimental-features = nix-command flakes"
 $ nix run home-manager -- switch --impure --flake .
 ```
 
