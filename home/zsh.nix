@@ -21,6 +21,7 @@
         d = "docker";
         dc = "docker compose";
         db = "devbox";
+        tf = "terraform";
         nfl = "nix flake lock";
         nfu = "nix flake update";
         nflu = "nix flake lock --update-input";
