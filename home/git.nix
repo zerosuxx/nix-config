@@ -48,6 +48,9 @@
       git = {
         path = toString pkgs.git;
       };
+      init = {
+        defaultBranch = "main";
+      };
       pull = {
         rebase = true;
       };
