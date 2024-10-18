@@ -9,7 +9,7 @@ pkgs: with pkgs; [
     docker compose --compatibility "$@"
   '')
 
-  (writeShellScriptBin "used-port" ''
+  (writeShellScriptBin "port-check" ''
     lsof -i "tcp:$@"
   '')
   
