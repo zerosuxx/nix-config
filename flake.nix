@@ -4,6 +4,7 @@
   inputs = {
     utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,13 +20,19 @@
     };
   };
 
-  outputs = inputs@{ self, utils, nixpkgs, nix-index-database, nix-darwin, nix-homebrew, home-manager, ... }:
+  outputs = inputs@{ self, utils, nixpkgs, nixpkgs-unstable, nix-index-database, nix-darwin, nix-homebrew, home-manager, ... }:
     let
+      overlays = system: import ./packages/overlays.nix {
+        nixpkgs-unstable = nixpkgs-unstable;
+        inherit system;
+      };
+
       username = builtins.getEnv "USER";
       pkgsForSystem = system:
         import nixpkgs {
           inherit system;
-          config.allowUnfree = true;
+          config = { allowUnfree = true; };
+          overlays = [ (overlays system) ];
         };
 
       hosts = import ./hosts.nix;
@@ -73,6 +80,10 @@
             ./hosts/zero-m3-max/configuration.nix
             home-manager.darwinModules.home-manager
             {
+              nixpkgs = {
+                config = { allowUnfree = true; };
+                overlays = [ (overlays "aarch64-darwin") ];
+              };
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
