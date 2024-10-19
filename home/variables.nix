@@ -14,6 +14,7 @@
     # shell
     EDITOR = "nano";
     TZ = "Europe/Budapest";
+    SHELL = "zsh";
 
     # k9s
     K9S_FEATURE_GATE_NODE_SHELL = "true";
