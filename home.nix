@@ -32,6 +32,7 @@ in
         run mkdir -p "$HOME/.termux" && cat "${builtins.toString ./dotfiles/termux/termux.properties}" > "$HOME/.termux/termux.properties" && cat "${builtins.toString ./dotfiles/termux/colors.properties}" > "$HOME/.termux/colors.properties"
         run ln -f -s /android/system/bin/linker64 /system/bin/linker64
         run ln -f -s /android/system/bin/ping /system/bin/ping
+        run ln -s /sdcard $HOME/sdcard
         run mkdir -p ~/.npm/lib
       '';
     };
