@@ -4,6 +4,7 @@ pkgs: with pkgs; [
   (pkgs.wrapHelm pkgs.kubernetes-helm {
     plugins = [
       #pkgs.kubernetes-helmPlugins.helm-secrets
+      pkgs.kubernetes-helmPlugins.helm-git
       pkgs.kubernetes-helmPlugins.helm-diff
       pkgs.kubernetes-helmPlugins.helm-unittest
     ];
