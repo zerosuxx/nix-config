@@ -18,5 +18,8 @@
 
     # k9s
     K9S_FEATURE_GATE_NODE_SHELL = "true";
+
+    # corepack
+    COREPACK_ENABLE_AUTO_PIN = "0";
   };
 }
