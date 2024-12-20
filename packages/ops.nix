@@ -16,6 +16,7 @@ pkgs: with pkgs; [
   ])
   gh
   google-cloud-sql-proxy
+  go-containerregistry
   teller
   terraform
   terragrunt
