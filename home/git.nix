@@ -43,6 +43,8 @@
       rv = "remote -v";
       rs = "remote show";
       st = "status";
+      sw = "switch";
+      swc = "switch -c";
     };
     extraConfig = {
       git = {
