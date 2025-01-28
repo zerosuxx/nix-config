@@ -21,7 +21,7 @@ in
   home = {
     homeDirectory = mkIf isLinux (builtins.getEnv "HOME");
     username = mkIf isLinux (builtins.getEnv "USER");
-    stateVersion = "24.05";
+    stateVersion = "24.11";
     sessionPath = [
       "$HOME/.local/bin"
       "$HOME/go/bin"
