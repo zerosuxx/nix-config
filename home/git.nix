@@ -44,7 +44,7 @@
       rs = "remote show";
       st = "status";
       sw = "switch";
-      swc = "switch -c";
+      swc = "switch --track --create";
     };
     extraConfig = {
       git = {
