@@ -8,4 +8,9 @@
     system = "x86_64-linux";
     config = { };
   };
+
+  "zero@zeroGo" = {
+    system = "x86_64-linux";
+    config = { };
+  };
 }
