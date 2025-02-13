@@ -54,7 +54,7 @@
         (name: value:
           mkHomeConfiguration {
             inherit (value) system;
-            extraSpecialArgs = value.config // { configName = name; };
+            extraSpecialArgs = { cfg = value.config; };
           }
         )
         hosts;
@@ -88,7 +88,7 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.${username} = import ./home.nix;
-                extraSpecialArgs = { specialArgs = { }; };
+                extraSpecialArgs = { specialArgs = { cfg = {}; }; };
               };
             }
           ];
