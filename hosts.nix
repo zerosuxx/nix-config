@@ -15,9 +15,11 @@
       env = {
        GDK_SCALE = 2;
        GDK_DPI_SCALE = 0.75;
+       DONT_PROMPT_WSL_INSTALL = 1;
       };
       packages = pkgs: with pkgs; [
         neofetch
+        vscode
       ];
     };
   };
