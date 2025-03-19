@@ -9,13 +9,13 @@ pkgs: {
     "mas"
     "coreutils"
     "dagger"
-    "stripe"
+    # "stripe"
   ];
 
   taps = [
     "homebrew/bundle"
     "zerosuxx/tap"
-    "stripe/stripe-cli"
+    # "stripe/stripe-cli"
   ];
 
   casks = [
