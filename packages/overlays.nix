@@ -1,7 +1,7 @@
-{ nixpkgs-unstable, system }:
+{ nixpkgs-unstable, nixpkgs-master, system }:
 
 final: prev: {
   devbox = nixpkgs-unstable.legacyPackages.${system}.devbox;
   google-cloud-sdk = nixpkgs-unstable.legacyPackages.${system}.google-cloud-sdk;
-  terragrunt = nixpkgs-unstable.legacyPackages.${system}.terragrunt;
+  terragrunt = nixpkgs-master.legacyPackages.${system}.terragrunt;
 }
