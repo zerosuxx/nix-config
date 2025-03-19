@@ -1,6 +1,5 @@
-{ pkgs, lib, inputs, cfg, ... }:
+{ pkgs, lib, inputs, username, ... }:
 let
-    inherit (cfg) username;
     homebrew = import ../../packages/darwin.nix pkgs;
 in
 {

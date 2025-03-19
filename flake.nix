@@ -90,13 +90,13 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.${username} = import ./home.nix;
-                extraSpecialArgs = { specialArgs = { cfg = {}; }; };
+                extraSpecialArgs = { cfg = { }; };
               };
             }
           ];
           specialArgs = { 
             inherit inputs;
-            cfg = { inherit username; };
+            inherit username;
           };
         };
       };
