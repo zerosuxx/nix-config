@@ -5,6 +5,7 @@
     utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-master.url = "github:nixos/nixpkgs/master";
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -20,10 +21,11 @@
     };
   };
 
-  outputs = inputs@{ self, utils, nixpkgs, nixpkgs-unstable, nix-index-database, nix-darwin, nix-homebrew, home-manager, ... }:
+  outputs = inputs@{ self, utils, nixpkgs, nixpkgs-unstable, nixpkgs-master, nix-index-database, nix-darwin, nix-homebrew, home-manager, ... }:
     let
       overlays = system: import ./packages/overlays.nix {
         nixpkgs-unstable = nixpkgs-unstable;
+        nixpkgs-master = nixpkgs-master;
         inherit system;
       };
 
