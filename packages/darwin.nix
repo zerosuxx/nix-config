@@ -25,6 +25,7 @@ pkgs: {
     "google-chrome"
     "iterm2"
     "jetbrains-toolbox"
+    "headlamp"
     "microsoft-outlook"
     "microsoft-teams"
     "postman"
