@@ -33,6 +33,7 @@ pkgs: {
     "slack"
     "sublime-text"
     "transmission"
+    "twingate"
     "vlc"
     "vnc-viewer"
     "visual-studio-code"
@@ -41,7 +42,6 @@ pkgs: {
   masApps = {
     Flyecut = 442160987;
     Bitwarden = 1352778147;
-    Twingate = 1501592214;
     Wireguard = 1451685025;
     RemarkableDesktop = 1276493162;
   };
