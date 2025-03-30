@@ -16,8 +16,10 @@
     aliases = {
       a = "add";
       c = "commit";
+      cnv = "commit --no-verify";
       ca = "commit --amend";
       can = "commit --amend --no-edit";
+      canv = "commit --amend --no-verify";
       cl = "clone";
       cm = "commit -m";
       cma = "commit -a -m";
