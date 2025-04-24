@@ -5,6 +5,8 @@
 $ sh <(curl -L https://nixos.org/nix/install)
 $ nix-shell -p git openssh --run "git clone https://github.com/zerosuxx/nix-config.git \
   && sed -i'' 's#https://github.com/#git@github.com:#g' nix-config/.git/config"
+$ curl -s https://github.com/zerosuxx.keys | head -n 1 > ~/.ssh/id_rsa.pub
+$ echo "zerosuxx@gmail.com $(cat ~/.ssh/id_rsa.pub)" > ~/.ssh/allowed_signers
 ```
 
 ### Bootstrap with Home Manager

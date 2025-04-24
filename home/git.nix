@@ -59,11 +59,17 @@
       commit = {
         gpgsign = true;
       };
-      gpg = {
-        format = "ssh";
-      };
       user = {
         signingkey = "~/.ssh/id_rsa.pub";
+      };
+      gpg = {
+        format = "ssh";
+        ssh = {
+          allowedSignersFile = "~/.ssh/allowed_signers";
+        };
+      };
+      tag = {
+         gpgSign = true;
       };
     };
     includes = [ ];

@@ -1,6 +1,7 @@
 pkgs: with pkgs; [
   kubectl
   kubectx
+  kustomize
   (pkgs.wrapHelm pkgs.kubernetes-helm {
     plugins = [
       #pkgs.kubernetes-helmPlugins.helm-secrets
