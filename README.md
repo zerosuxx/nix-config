@@ -1,8 +1,18 @@
 # nix-config
 
-### Install
+### Install nix
 ```shell
 $ sh <(curl -L https://nixos.org/nix/install)
+```
+
+### Update nix channel
+```shell
+$ nix-channel --add https://nixos.org/channels/nixos-24.11
+$ nix-channel --update
+```
+
+### Clone this repository
+```shell
 $ nix-shell -p git openssh --run "git clone https://github.com/zerosuxx/nix-config.git \
   && sed -i'' 's#https://github.com/#git@github.com:#g' nix-config/.git/config"
 $ curl -s https://github.com/zerosuxx.keys | head -n 1 > ~/.ssh/id_rsa.pub
