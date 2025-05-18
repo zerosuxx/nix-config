@@ -7,7 +7,7 @@ $ sh <(curl -L https://nixos.org/nix/install)
 
 ### Update nix channel
 ```shell
-$ nix-channel --add https://nixos.org/channels/nixos-24.11
+$ nix-channel --add https://nixos.org/channels/nixos-24.11 nixpkgs
 $ nix-channel --update
 ```
 
