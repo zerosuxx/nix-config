@@ -43,6 +43,11 @@ $ softwareupdate --install-rosetta
 $ nix run nix-darwin -- switch --impure --flake .
 ```
 
+### Bootstrap with Nix-On-Droid
+```shell
+$ nix-on-droid switch --flake .
+```
+
 ### Update flake
 ```shell
 $ nix flake update
