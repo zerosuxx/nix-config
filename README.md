@@ -19,6 +19,8 @@ $ nix-shell -p git openssh --run "git clone https://github.com/zerosuxx/nix-conf
 
 ### Setup SSH
 ```shell
+$ nix-shell -p curl --run bash
+$ mkdir -p ~/.ssh
 $ curl -s https://github.com/zerosuxx.keys | head -n 1 > ~/.ssh/id_rsa.pub
 $ echo "zerosuxx@gmail.com $(cat ~/.ssh/id_rsa.pub)" > ~/.ssh/allowed_signers
 ```
