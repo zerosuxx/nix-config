@@ -6,9 +6,9 @@
   config = {
     programs.zsh = {
       enable = true;
-      autosuggestion.enable = true;
-      syntaxHighlighting.enable = true;
+      enableAutosuggestions = true;
       enableCompletion = true;
+      syntaxHighlighting.enable = true;
     
       shellAliases = {
         ll = "ls -alhF";
