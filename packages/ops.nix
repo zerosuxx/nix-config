@@ -21,4 +21,5 @@ pkgs: with pkgs; [
   teller
   terraform
   terragrunt
+  udocker
 ]

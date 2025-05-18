@@ -7,6 +7,7 @@ pkgs: with pkgs; [
   dig.dnsutils
   # glibc.bin
   go
+  gopls
   git
   gnupg
   gnugrep

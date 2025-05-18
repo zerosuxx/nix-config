@@ -29,7 +29,7 @@
         hm = "home-manager";
         rmds = "find . -name '.DS_Store' -type f -delete";
         dutop = "du -h -x -d 1 .";
-        rld = "${if pkgs.stdenv.hostPlatform.isDarwin then "darwin-rebuild" else "home-manager"} switch --impure --flake ~/nix-config";
+        rld = "${if config.zshModule.isTermux then "nix-on-droid switch" else if pkgs.stdenv.hostPlatform.isDarwin then "darwin-rebuild switch --impure" else "home-manager switch --impure"} --flake ~/nix-config";
         rlb = "${if pkgs.stdenv.hostPlatform.isDarwin then "darwin-rebuild switch --impure --rollback --flake ~/nix-config" else "$(home-manager generations | sed -n '2p' | cut -d '>' -f 2)/activate"}";
         myip = "curl -fsSL http://ip-api.com";
       };
@@ -39,6 +39,7 @@
         ${if config.zshModule.isTermux then ''
           export PATH=/system/bin:$PATH
           export NPM_CONFIG_PREFIX=~/.npm
+          export UDOCKER_USE_PROOT_EXECUTABLE=/system/bin/proot-static
         '' else ""}
     
         zstyle ":completion:*:*:make:*" tag-order "targets"
