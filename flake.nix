@@ -106,16 +106,15 @@
       };
     } // {
       nixOnDroidConfigurations.default = nix-on-droid.lib.nixOnDroidConfiguration {
-        pkgs = import nixpkgs {
-          system = "aarch64-linux";
-        };
+        pkgs = pkgsForSystem "aarch64-linux";
         modules = [
           ./hosts/nix-on-droid/configuration.nix
           {
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
-              sharedModules = defaultModules;
+              config = import ./home.nix;
+              #sharedModules = defaultModules;
               extraSpecialArgs = { cfg = { }; };
             };
           }
