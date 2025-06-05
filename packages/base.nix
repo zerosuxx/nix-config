@@ -1,6 +1,5 @@
 pkgs: with pkgs; [
   bash-completion
-  corepack_20.out
   curl
   file.out
   devbox
