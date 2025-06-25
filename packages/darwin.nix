@@ -19,7 +19,7 @@ pkgs: {
   ];
 
   casks = [
-    "docker"
+    "docker-desktop"
     "filezilla"
     "firefox"
     "google-chrome"
