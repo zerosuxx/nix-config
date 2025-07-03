@@ -1,5 +1,6 @@
 pkgs: with pkgs; [
   kubectl
+  kubectl-view-allocations
   kubectx
   kustomize
   krew
