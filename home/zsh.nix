@@ -18,6 +18,7 @@
         g = "git";
         k = "kubectl";
         kctx = "kubectx";
+        kva = "kubectl-view-allocations";
         d = "docker";
         dc = "docker compose";
         db = "devbox";

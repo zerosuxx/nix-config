@@ -25,6 +25,7 @@ in
     sessionPath = [
       "$HOME/.local/bin"
       "$HOME/go/bin"
+      "$HOME/.krew/bin"
     ];
 
     activation = mkIf isTermux {
