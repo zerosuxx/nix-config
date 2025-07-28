@@ -45,6 +45,7 @@ $ nix run nix-darwin -- switch --impure --flake .
 
 ### Bootstrap with Nix-On-Droid
 ```shell
+$ sh scripts/init-hm-nix-on-droid.sh # for use home-manager
 $ nix-on-droid switch --flake .
 ```
 
