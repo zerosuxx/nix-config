@@ -9,5 +9,8 @@ for pkg in $(nix-env -q); do
   echo "${pkg} package priority updated to '1'"
 done
 
-nix-channel --add https://github.com/nix-community/home-manager/archive/release-24.05.tar.gz home-manager
+nix-channel --add https://nixos.org/channels/nixos-25.05 nixpkgs
 nix-channel --update
+
+export NIX_CONFIG="experimental-features = nix-command flakes"
+nix-shell -p git openssh --run nix run home-manager -- switch --impure --flake .
