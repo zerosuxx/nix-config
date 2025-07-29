@@ -30,15 +30,15 @@ in
 
     activation = mkIf isTermux {
       termuxInit = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        run 'mkdir -p "$HOME/.termux" && \
+        run sh -c 'mkdir -p "$HOME/.termux" && \
           { [ -f "$HOME/.termux/termux.properties" ] || \
             cat "${builtins.toString ./dotfiles/termux/termux.properties}" > "$HOME/.termux/termux.properties"; } && \
           { [ -f "$HOME/.termux/colors.properties" ] || \
             cat "${builtins.toString ./dotfiles/termux/colors.properties}" > "$HOME/.termux/colors.properties"; }'
-        run 'ln -f -s /android/system/bin/linker64 /system/bin/linker64'
-        run 'ln -f -s /android/system/bin/ping /system/bin/ping'
-        run '[ -L "$HOME/sdcard" ] || ln -s /sdcard "$HOME/sdcard"'
-        run 'mkdir -p "$HOME/.npm/lib"'
+        run ln -f -s /android/system/bin/linker64 /system/bin/linker64
+        run ln -f -s /android/system/bin/ping /system/bin/ping
+        run sh -c '[ -L "$HOME/sdcard" ] || ln -s /sdcard "$HOME/sdcard"'
+        run mkdir -p "$HOME/.npm/lib"
       '';
     };
   };
