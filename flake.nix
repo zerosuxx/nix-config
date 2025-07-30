@@ -19,13 +19,18 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zerosuxx-nixpkgs = {
+      url = "github:zerosuxx/nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, utils, nixpkgs, nixpkgs-unstable, nixpkgs-master, nix-index-database, nix-darwin, nix-homebrew, home-manager, ... }:
+  outputs = inputs@{ self, utils, nixpkgs, nixpkgs-unstable, nixpkgs-master, nix-index-database, nix-darwin, nix-homebrew, home-manager, zerosuxx-nixpkgs, ... }:
     let
       overlays = system: import ./packages/overlays.nix {
         nixpkgs-unstable = nixpkgs-unstable;
         nixpkgs-master = nixpkgs-master;
+        zerosuxx-nixpkgs = zerosuxx-nixpkgs;
         inherit system;
       };
 
