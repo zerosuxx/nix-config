@@ -21,6 +21,7 @@ pkgs: with pkgs; [
   oh-my-zsh
   openssh
   openssl
+  nix
   nix-direnv
   # manix
   # nix-index

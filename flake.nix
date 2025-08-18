@@ -46,7 +46,7 @@
         };
 
       hosts = import ./hosts.nix;
-      defaultModules = [ (import ./home.nix) ] ++ [ nix-index-database.hmModules.nix-index ];
+      defaultModules = [ (import ./home.nix) ] ++ [ nix-index-database.homeModules.nix-index ];
 
       mkHomeConfiguration = args: home-manager.lib.homeManagerConfiguration (rec {
         modules = defaultModules ++ (args.modules or [ ]);
