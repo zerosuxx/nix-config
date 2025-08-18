@@ -6,4 +6,5 @@ final: prev: {
   gh = nixpkgs-unstable.legacyPackages.${system}.gh;
   terragrunt = nixpkgs-master.legacyPackages.${system}.terragrunt;
   terraform = zerosuxx-nixpkgs.packages.${system}.terraform;
+  k9s = nixpkgs-unstable.legacyPackages.${system}.k9s;
 }
