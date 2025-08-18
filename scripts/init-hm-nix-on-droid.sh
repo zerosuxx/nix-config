@@ -5,8 +5,8 @@ for pkg in $(nix-env -q); do
     echo "${pkg} package priority update skipped."
     continue
   fi
-  nix-env --set-flag priority 1 "${pkg}"
-  echo "${pkg} package priority updated to '1'"
+  nix-env --set-flag priority 10 "${pkg}"
+  echo "${pkg} package priority updated to '10'"
 done
 
 # nix-channel --add https://nixos.org/channels/nixos-25.05 nixpkgs
