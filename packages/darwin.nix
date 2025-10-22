@@ -9,6 +9,8 @@ pkgs: {
     "mas"
     "coreutils"
     "dagger"
+    "ollama"
+    "mcp-toolbox"
     # "stripe"
   ];
 
