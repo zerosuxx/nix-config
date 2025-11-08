@@ -24,6 +24,7 @@
         db = "devbox";
         tf = "terraform";
         tg = "terragrunt";
+        hf = "helmfile";
         nfl = "nix flake lock";
         nfu = "nix flake update";
         nflu = "nix flake lock --update-input";
