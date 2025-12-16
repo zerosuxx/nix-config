@@ -21,6 +21,7 @@ pkgs: {
   ];
 
   casks = [
+    "bruno"
     "docker-desktop"
     "filezilla"
     "firefox"

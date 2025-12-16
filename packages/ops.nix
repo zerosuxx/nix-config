@@ -1,4 +1,12 @@
 pkgs: with pkgs; [
+  gh
+  (pkgs.google-cloud-sdk.withExtraComponents [
+    pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
+  ])
+  google-cloud-sql-proxy
+  go-containerregistry
+  helmfile
+  k9s
   kubectl
   kubectl-view-allocations
   kubectx
@@ -12,14 +20,7 @@ pkgs: with pkgs; [
       pkgs.kubernetes-helmPlugins.helm-unittest
     ];
   })
-  helmfile
-  k9s
-  (pkgs.google-cloud-sdk.withExtraComponents [
-    pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
-  ])
-  gh
-  google-cloud-sql-proxy
-  go-containerregistry
+  labctl
   teller
   terraform
   terragrunt
