@@ -19,6 +19,7 @@ pkgs: with pkgs; [
   nano
   nodejs_20
   oh-my-zsh
+  ollama
   openssh
   openssl
   nix
