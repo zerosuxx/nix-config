@@ -64,7 +64,7 @@ in
           "/Users/${username}/Applications/Chrome Apps.localized/Google Chat.app"
           "/Users/${username}/Applications/Chrome Apps.localized/Google Calendar.app"
           "/Users/${username}/Applications/WebStorm.app"
-          "/Users/${username}/Applications/IntelliJ IDEA Ultimate.app"
+          "/Users/${username}/Applications/IntelliJ IDEA.app"
           "/Users/${username}/Applications/Fleet.app"
           "/Applications/Visual Studio Code.app"
           "/Applications/Sublime Text.app"
