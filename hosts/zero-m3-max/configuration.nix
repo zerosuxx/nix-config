@@ -70,7 +70,7 @@ in
           "/Applications/Sublime Text.app"
           "/System/Applications/Utilities/Activity Monitor.app"
           "/System/Applications/Calendar.app"
-          "/System/Applications/Launchpad.app"
+          # "/System/Applications/Launchpad.app"
           "/System/Applications/System Settings.app"
           "/System/Applications/Reminders.app"
           "/System/Applications/Notes.app"
