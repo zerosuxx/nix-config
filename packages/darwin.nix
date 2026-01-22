@@ -34,6 +34,7 @@ pkgs: {
     "microsoft-teams"
     "postman"
     "proxyman"
+    "redisinsight"
     "slack"
     "sublime-text"
     "transmission"
