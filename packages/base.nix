@@ -17,7 +17,7 @@ pkgs: with pkgs; [
   # less
   # libuuid
   nano
-  nodejs_20
+  nodejs_22
   oh-my-zsh
   ollama
   openssh
