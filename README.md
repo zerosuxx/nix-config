@@ -52,5 +52,6 @@ $ nix-on-droid switch --flake .
 ### Update flake
 ```shell
 $ nix flake update
-$ nix flake lock --update-input zerosuxx-nixpkgs
+$ nix flake update zerosuxx-nixpkgs
+$ nix flake update nixpkgs-master
 ```
