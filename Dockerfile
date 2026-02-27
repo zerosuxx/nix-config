@@ -18,6 +18,8 @@ COPY --chown=zero:zero . /home/zero/nix-config
 
 WORKDIR /home/zero/nix-config
 
-RUN sh scripts/install-home-manager.sh
+ENV NIX_CONFIG="experimental-features = nix-command flakes"
+
+RUN nix run home-manager -- switch --impure --flake .
 
 CMD ["sh", "-c", "chown $USER:$USER . && nix-daemon --daemon"]
