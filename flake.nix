@@ -27,6 +27,8 @@
 
   outputs = inputs@{ self, utils, nixpkgs, nixpkgs-unstable, nixpkgs-master, nix-index-database, nix-darwin, nix-homebrew, home-manager, zerosuxx-nixpkgs, ... }:
     let
+      lib = nixpkgs.lib;
+
       overlays = system: import ./packages/overlays.nix {
         nixpkgs-unstable = nixpkgs-unstable;
         nixpkgs-master = nixpkgs-master;
@@ -34,10 +36,6 @@
         inherit system;
       };
 
-      sudoUsername = builtins.getEnv "SUDO_USER";
-      originalUserName = builtins.getEnv "USER";
-
-      username = if sudoUsername != "" then sudoUsername else originalUserName;
       pkgsForSystem = system:
         import nixpkgs {
           inherit system;
@@ -47,6 +45,51 @@
 
       hosts = import ./hosts.nix;
       defaultModules = [ (import ./home.nix) ] ++ [ nix-index-database.homeModules.nix-index ];
+
+      # Darwin hosts defined in hosts.nix (entries with a `darwin` attribute)
+      darwinHosts = lib.filterAttrs (_: v: v ? darwin) hosts;
+      hostnameOf = name: lib.last (lib.splitString "@" name);
+      usernameOf = name: lib.head (lib.splitString "@" name);
+
+      darwinConfigsFromHosts = lib.mapAttrs'
+        (name: value:
+          let username = usernameOf name; in
+          lib.nameValuePair (hostnameOf name) (nix-darwin.lib.darwinSystem {
+            system = value.system;
+            modules = [
+              nix-homebrew.darwinModules.nix-homebrew
+              {
+                nix-homebrew = {
+                  enable = true;
+                  enableRosetta = value.system == "aarch64-darwin";
+                  user = username;
+                  mutableTaps = true;
+                  autoMigrate = true;
+                };
+              }
+              (value.darwin.configModule or ./hosts/darwin/configuration.nix)
+              home-manager.darwinModules.home-manager
+              {
+                nixpkgs = {
+                  config = { allowUnfree = true; };
+                  overlays = [ (overlays value.system) ];
+                };
+                home-manager = {
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                  users.${username} = import ./home.nix;
+                  extraSpecialArgs = { cfg = value.config or { }; };
+                };
+              }
+            ];
+            specialArgs = {
+              inherit inputs;
+              username = username;
+              darwinConfig = value.darwin;
+            };
+          })
+        )
+        darwinHosts;
 
       mkHomeConfiguration = args: home-manager.lib.homeManagerConfiguration (rec {
         modules = defaultModules ++ (args.modules or [ ]);
@@ -67,46 +110,8 @@
             extraSpecialArgs = { cfg = value.config; };
           }
         )
-        hosts;
+        (lib.filterAttrs (_: v: !(v ? darwin)) hosts);
     } // {
-      darwinConfigurations = {
-        zero-m3-max = nix-darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          modules = [
-            nix-homebrew.darwinModules.nix-homebrew
-            {
-              nix-homebrew = {
-                enable = true;
-                enableRosetta = true;
-                user = username;
-
-                # Optional: Enable fully-declarative tap management
-                #
-                # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
-                mutableTaps = true;
-                autoMigrate = true;
-              };
-            }
-            ./hosts/zero-m3-max/configuration.nix
-            home-manager.darwinModules.home-manager
-            {
-              nixpkgs = {
-                config = { allowUnfree = true; };
-                overlays = [ (overlays "aarch64-darwin") ];
-              };
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.${username} = import ./home.nix;
-                extraSpecialArgs = { cfg = { }; };
-              };
-            }
-          ];
-          specialArgs = { 
-            inherit inputs;
-            inherit username;
-          };
-        };
-      };
+      darwinConfigurations = darwinConfigsFromHosts;
     };
 }

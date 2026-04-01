@@ -1,18 +1,19 @@
 { pkgs, lib, username, darwinConfig ? {}, ... }:
 let
   touchIdAuth = darwinConfig.touchIdAuth or false;
+  isArm = pkgs.stdenv.hostPlatform.isAarch64;
+  brewPath = if isArm then "/opt/homebrew/bin/brew" else "/usr/local/bin/brew";
   homebrew = import ../../packages/darwin.nix pkgs;
 in
 {
   users.users.${username}.home = "/Users/${username}";
-  nixpkgs.hostPlatform = "aarch64-darwin";
 
   nix = {
     package = pkgs.nix;
     extraOptions = ''
       auto-optimise-store = true
       experimental-features = nix-command flakes
-    '' + lib.optionalString (pkgs.system == "aarch64-darwin") ''
+    '' + lib.optionalString isArm ''
       extra-platforms = x86_64-darwin aarch64-darwin
     '';
   };
@@ -21,7 +22,7 @@ in
     zsh = {
       enable = true;
       shellInit = ''
-        eval "$(/opt/homebrew/bin/brew shellenv)"
+        eval "$(${brewPath} shellenv)"
       '';
     };
     nix-index = {
@@ -31,20 +32,9 @@ in
 
   security.pam.services.sudo_local.touchIdAuth = touchIdAuth;
 
-  # environment.profiles = [
-  #   "$HOME/.nix-profile"
-  #   "/etc/profiles/per-user/$USER"
-  # ];
-
   system = {
     primaryUser = username;
     stateVersion = 4;
-    # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
-    # activationScripts.postUserActivation.text = ''
-    #   # activateSettings -u will reload the settings from the database and apply them to the current session,
-    #   # so we do not need to logout and login again to make the changes take effect.
-    #   /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-    # '';
 
     defaults = {
       menuExtraClock.Show24Hour = true;
@@ -53,30 +43,7 @@ in
         autohide = true;
         tilesize = 36;
         launchanim = true;
-        # mouse-over-hilite-stack = true;
         orientation = "bottom";
-        persistent-apps = [
-          # "/System/Library/CoreServices/Finder.app"
-          "/Applications/iTerm.app"
-          "/Applications/Firefox.app"
-          "/Applications/Google Chrome.app"
-          "/Applications/Slack.app"
-          "/Users/${username}/Applications/Chrome Apps.localized/Gmail.app"
-          "/Users/${username}/Applications/Chrome Apps.localized/Google Chat.app"
-          "/Users/${username}/Applications/Chrome Apps.localized/Google Calendar.app"
-          "/Users/${username}/Applications/WebStorm.app"
-          "/Users/${username}/Applications/IntelliJ IDEA.app"
-          "/Users/${username}/Applications/Fleet.app"
-          "/Applications/Visual Studio Code.app"
-          "/Applications/Sublime Text.app"
-          "/System/Applications/Utilities/Activity Monitor.app"
-          "/System/Applications/Calendar.app"
-          # "/System/Applications/Launchpad.app"
-          "/System/Applications/System Settings.app"
-          "/System/Applications/Reminders.app"
-          "/System/Applications/Notes.app"
-          "/System/Applications/App Store.app"
-        ];
       };
 
       screencapture.location = "~/Pictures";
@@ -85,10 +52,8 @@ in
       NSGlobalDomain = {
         AppleShowAllExtensions = false;
         ApplePressAndHoldEnabled = false;
-
         # 120, 90, 60, 30, 12, 6, 2
         KeyRepeat = 2;
-
         # 120, 94, 68, 35, 25, 15
         InitialKeyRepeat = 25;
       };
@@ -114,11 +79,9 @@ in
           _FXSortFoldersFirst = true;
           _FXShowPosixPathInTitle = true;
           FXPreferredViewStyle = "Nlsv";
-          # When performing a search, search the current folder by default
           FXDefaultSearchScope = "SCcf";
         };
         "com.apple.desktopservices" = {
-          # Avoid creating .DS_Store files on network or USB volumes
           DSDontWriteNetworkStores = true;
           DSDontWriteUSBStores = true;
         };
@@ -134,7 +97,7 @@ in
             "60" = {
               enabled = true;
               value = {
-                parameters = [32 49 524288];
+                parameters = [ 32 49 524288 ];
                 type = "standard";
               };
             };
@@ -142,7 +105,7 @@ in
             "164" = {
               enabled = 0;
               value = {
-                parameters = [65535 65535 0];
+                parameters = [ 65535 65535 0 ];
                 type = "standard";
               };
             };
@@ -172,3 +135,4 @@ in
     inherit (homebrew) masApps;
   };
 }
+
