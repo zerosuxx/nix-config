@@ -37,6 +37,7 @@ pkgs: {
     "redis-insight"
     "slack"
     "sublime-text"
+    "teamviewer"
     "transmission"
     "twingate"
     "vlc"
