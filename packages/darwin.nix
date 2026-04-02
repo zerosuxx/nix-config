@@ -15,7 +15,7 @@ pkgs: {
   ];
 
   taps = [
-    "homebrew/bundle"
+    "homebrew/brew"
     "zerosuxx/tap"
     # "stripe/stripe-cli"
   ];
