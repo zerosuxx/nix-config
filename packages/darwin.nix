@@ -9,15 +9,11 @@ pkgs: {
     "mas"
     "coreutils"
     "dagger"
-    # "ollama"
     "mcp-toolbox"
-    # "stripe"
   ];
 
   taps = [
-    "homebrew/brew"
     "zerosuxx/tap"
-    # "stripe/stripe-cli"
   ];
 
   casks = [
