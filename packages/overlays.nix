@@ -1,8 +1,20 @@
-{ nixpkgs-unstable, nixpkgs-master, zerosuxx-nixpkgs, system }:
+{ nixpkgs-unstable
+, nixpkgs-master
+, zerosuxx-nixpkgs
+, system
+}:
 
 let
-  unstable = nixpkgs-unstable.legacyPackages.${system};
-  master   = nixpkgs-master.legacyPackages.${system};
+  unstable = import nixpkgs-unstable {
+    inherit system;
+    config.allowUnfree = true;
+  };
+
+  master = import nixpkgs-master {
+    inherit system;
+    config.allowUnfree = true;
+  };
+
   zerosuxx = zerosuxx-nixpkgs.packages.${system};
 in
 
