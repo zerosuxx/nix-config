@@ -39,6 +39,7 @@ $ sudo scutil --set LocalHostName $NEW_HOSTNAME
 $ sudo scutil --set ComputerName $NEW_HOSTNAME
 $ xcode-select --install
 $ softwareupdate --install-rosetta
+# Log in to the App Store with your Apple ID and download an app (e.g. Flycut).
 $ sudo NIX_CONFIG="experimental-features = nix-command flakes" nix run nix-darwin -- switch --impure --flake .
 ```
 
