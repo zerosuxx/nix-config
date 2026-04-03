@@ -31,6 +31,7 @@ in
   };
 
   security.pam.services.sudo_local.touchIdAuth = touchIdAuth;
+  ids.gids.nixbld = 350;
 
   system = {
     primaryUser = username;
