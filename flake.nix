@@ -46,10 +46,9 @@
       hosts = import ./hosts.nix;
       defaultModules = [ (import ./home.nix) ] ++ [ nix-index-database.homeModules.nix-index ];
 
-      # Darwin hosts defined in hosts.nix (entries with a `darwin` attribute)
       darwinHosts = lib.filterAttrs (_: v: v ? darwin) hosts;
-      hostnameOf = name: lib.last (lib.splitString "@" name);
       usernameOf = name: lib.head (lib.splitString "@" name);
+      hostnameOf = name: lib.last (lib.splitString "@" name);
 
       darwinConfigsFromHosts = lib.mapAttrs'
         (name: value:
