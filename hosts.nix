@@ -23,4 +23,13 @@
       ];
     };
   };
+
+  "tmohos@zero-m3-max" = {
+    system = "aarch64-darwin";
+    darwin = {
+      touchIdAuth = true;
+      configModule = ./hosts/zero-m3-max/configuration.nix;
+    };
+    config = { };
+  };
 }
