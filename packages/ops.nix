@@ -1,4 +1,5 @@
 pkgs: with pkgs; [
+  claude-code
   copilot-cli
   gh
   (pkgs.google-cloud-sdk.withExtraComponents [

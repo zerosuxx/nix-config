@@ -37,10 +37,10 @@ $ export NEW_HOSTNAME="zero-m3-max"
 $ sudo scutil --set HostName $NEW_HOSTNAME.localdomain
 $ sudo scutil --set LocalHostName $NEW_HOSTNAME
 $ sudo scutil --set ComputerName $NEW_HOSTNAME
-$ export NIX_CONFIG="experimental-features = nix-command flakes"
 $ xcode-select --install
 $ softwareupdate --install-rosetta
-$ nix run nix-darwin -- switch --impure --flake .
+# Log in to the App Store with your Apple ID and download an app (e.g. Flycut).
+$ sudo NIX_CONFIG="experimental-features = nix-command flakes" nix run nix-darwin -- switch --impure --flake .
 ```
 
 ### Bootstrap with Nix-On-Droid
