@@ -22,6 +22,9 @@
 
       # corepack
       COREPACK_ENABLE_AUTO_PIN = "0";
+
+      # azure
+      AZURE_CORE_OUTPUT = "table";
     }
     (cfg.env or {})
   ];
