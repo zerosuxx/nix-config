@@ -5,11 +5,12 @@ pkgs: {
   ];
 
   brews = [
-    "qemu"
-    "mas"
     "coreutils"
     "dagger"
+    "mas"
     "mcp-toolbox"
+    "mole"
+    "qemu"
   ];
 
   taps = [
@@ -42,9 +43,9 @@ pkgs: {
   ];
 
   masApps = {
-    Flyecut = 442160987;
     Bitwarden = 1352778147;
-    Wireguard = 1451685025;
+    Flyecut = 442160987;
     RemarkableDesktop = 1276493162;
+    Wireguard = 1451685025;
   };
 }

@@ -1,5 +1,7 @@
 pkgs: with pkgs; [
+  azure-cli
   claude-code
+  codex
   copilot-cli
   gh
   (pkgs.google-cloud-sdk.withExtraComponents [
