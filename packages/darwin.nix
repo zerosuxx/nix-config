@@ -19,6 +19,7 @@ pkgs: {
 
   casks = [
     "bruno"
+    "codex-app"
     "docker-desktop"
     "filezilla"
     "firefox"
