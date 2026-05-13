@@ -62,7 +62,6 @@ in
           "/Applications/Google Chrome.app"
           "/Applications/Slack.app"
           "/Users/${username}/Applications/Chrome Apps.localized/Gmail.app"
-          "/Users/${username}/Applications/Chrome Apps.localized/Google Chat.app"
           "/Users/${username}/Applications/Chrome Apps.localized/Google Calendar.app"
           "/Users/${username}/Applications/WebStorm.app"
           "/Users/${username}/Applications/IntelliJ IDEA.app"

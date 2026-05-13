@@ -26,6 +26,7 @@ final: prev: {
   helmfile         = unstable.helmfile;
   k9s              = unstable.k9s;
   ollama           = unstable.ollama;
+  ruby_4_0         = unstable.ruby_4_0;
 
   labctl     = zerosuxx.labctl;
   terraform  = zerosuxx.terraform;
