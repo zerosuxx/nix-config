@@ -154,8 +154,8 @@ in
   homebrew = {
     enable = true;
     onActivation = {
+      autoUpdate = false;
       upgrade = true;
-      autoUpdate = true;
       cleanup = "zap";
     };
 
