@@ -1,5 +1,6 @@
 pkgs: with pkgs; [
   bash-completion
+  bun
   curl
   file.out
   devbox

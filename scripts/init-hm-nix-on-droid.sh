@@ -9,7 +9,7 @@ for pkg in $(nix-env -q); do
   echo "${pkg} package priority updated to '10'"
 done
 
-# nix-channel --add https://nixos.org/channels/nixos-25.05 nixpkgs
+# nix-channel --add https://nixos.org/channels/nixos-25.11 nixpkgs
 # nix-channel --update
 
 export NIX_CONFIG="experimental-features = nix-command flakes"

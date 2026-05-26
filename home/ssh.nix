@@ -8,7 +8,11 @@
 }: {
   programs.ssh = {
     enable = true;
-    forwardAgent = true;
-    #extraConfig = "ForwardAgent yes";
+    enableDefaultConfig = false;
+    matchBlocks = {
+      "*" = {
+        forwardAgent = true;
+      };
+    };
   };
 }

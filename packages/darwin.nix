@@ -7,9 +7,11 @@ pkgs: {
   brews = [
     "coreutils"
     "dagger"
+    "ffmpeg"
     "mas"
     "mcp-toolbox"
     "mole"
+    "tmux"
     "qemu"
   ];
 
@@ -18,8 +20,10 @@ pkgs: {
   ];
 
   casks = [
+    "antigravity"
     "bruno"
     "codex-app"
+    "claude"
     "docker-desktop"
     "filezilla"
     "firefox"
@@ -34,6 +38,7 @@ pkgs: {
     "slack"
     "sublime-text"
     "teamviewer"
+    "telegram"
     "transmission"
     "tunnelblick"
     "twingate"
