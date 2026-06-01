@@ -21,6 +21,7 @@ pkgs: {
 
   casks = [
     "antigravity"
+    "antigravity-ide"
     "bruno"
     "codex-app"
     "claude"
