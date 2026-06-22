@@ -32,4 +32,13 @@
     };
     config = { };
   };
+
+  "tmohos@zero-m5-max" = {
+    system = "aarch64-darwin";
+    darwin = {
+      touchIdAuth = true;
+      configModule = ./hosts/zero-m5-max/configuration.nix;
+    };
+    config = { };
+  };
 }
