@@ -1,5 +1,7 @@
 pkgs: with pkgs; [
-  azure-cli
+  (pkgs.azure-cli.withExtensions [
+    pkgs.azure-cli.extensions.azure-devops
+  ])
   claude-code
   codex
   copilot-cli

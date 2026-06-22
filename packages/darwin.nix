@@ -22,6 +22,7 @@ pkgs: {
   casks = [
     "antigravity"
     "antigravity-ide"
+    "brave-browser"
     "bruno"
     "codex-app"
     "claude"
