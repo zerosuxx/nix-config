@@ -162,7 +162,6 @@ in
     global = {
       autoUpdate = true;
       brewfile = true;
-      lockfiles = true;
     };
 
     inherit (homebrew) brews;
