@@ -30,6 +30,7 @@ in
   };
 
   security.pam.services.sudo_local.touchIdAuth = touchIdAuth;
+  ids.gids.nixbld = 350;
 
   # environment.profiles = [
   #   "$HOME/.nix-profile"
@@ -39,12 +40,14 @@ in
   system = {
     primaryUser = username;
     stateVersion = 4;
+
     # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
-    # activationScripts.postUserActivation.text = ''
-    #   # activateSettings -u will reload the settings from the database and apply them to the current session,
-    #   # so we do not need to logout and login again to make the changes take effect.
-    #   /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
-    # '';
+    activationScripts.postActivation.text = ''
+      /usr/bin/pmset -b displaysleep 10
+      # activateSettings -u will reload the settings from the database and apply them to the current session,
+      # so we do not need to logout and login again to make the changes take effect.
+      /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+    '';
 
     defaults = {
       menuExtraClock.Show24Hour = true;
@@ -65,7 +68,7 @@ in
           "/Users/${username}/Applications/Chrome Apps.localized/Google Calendar.app"
           "/Users/${username}/Applications/WebStorm.app"
           "/Users/${username}/Applications/IntelliJ IDEA.app"
-          "/Users/${username}/Applications/Fleet.app"
+          # "/Users/${username}/Applications/Fleet.app"
           "/Applications/Visual Studio Code.app"
           "/Applications/Sublime Text.app"
           "/System/Applications/Utilities/Activity Monitor.app"
