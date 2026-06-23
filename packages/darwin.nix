@@ -9,7 +9,6 @@ pkgs: {
     "dagger"
     "ffmpeg"
     "mas"
-    "mcp-toolbox"
     "mole"
     "tmux"
     "qemu"
