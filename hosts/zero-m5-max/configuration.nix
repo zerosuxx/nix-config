@@ -159,7 +159,7 @@ in
     onActivation = {
       autoUpdate = false;
       upgrade = true;
-      cleanup = "zap";
+      cleanup = "none";
     };
 
     global = {
