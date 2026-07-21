@@ -1,7 +1,7 @@
 { lib, pkgs, specialArgs, ... }:
 
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkMerge;
   inherit (pkgs.stdenv) isLinux isDarwin;
 
   isTermux = builtins.getEnv "TERMUX_VERSION" != "";
@@ -28,19 +28,26 @@ in
       "$HOME/.krew/bin"
     ];
 
-    activation = mkIf isTermux {
-      termuxInit = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        run sh -c 'mkdir -p "$HOME/.termux" && \
-          { [ -f "$HOME/.termux/termux.properties" ] || \
-            cat "${builtins.toString ./dotfiles/termux/termux.properties}" > "$HOME/.termux/termux.properties"; } && \
-          { [ -f "$HOME/.termux/colors.properties" ] || \
-            cat "${builtins.toString ./dotfiles/termux/colors.properties}" > "$HOME/.termux/colors.properties"; }'
-        run ln -f -s /android/system/bin/linker64 /system/bin/linker64
-        run ln -f -s /android/system/bin/ping /system/bin/ping
-        run sh -c '[ -L "$HOME/sdcard" ] || ln -s /sdcard "$HOME/sdcard"'
-        run mkdir -p "$HOME/.npm/lib"
-      '';
-    };
+    activation = mkMerge [
+      (mkIf isTermux {
+        termuxInit = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          run sh -c 'mkdir -p "$HOME/.termux" && \
+            { [ -f "$HOME/.termux/termux.properties" ] || \
+              cat "${builtins.toString ./dotfiles/termux/termux.properties}" > "$HOME/.termux/termux.properties"; } && \
+            { [ -f "$HOME/.termux/colors.properties" ] || \
+              cat "${builtins.toString ./dotfiles/termux/colors.properties}" > "$HOME/.termux/colors.properties"; }'
+          run ln -f -s /android/system/bin/linker64 /system/bin/linker64
+          run ln -f -s /android/system/bin/ping /system/bin/ping
+          run sh -c '[ -L "$HOME/sdcard" ] || ln -s /sdcard "$HOME/sdcard"'
+          run mkdir -p "$HOME/.npm/lib"
+        '';
+      })
+      (mkIf isDarwin {
+        nativeMessagingHosts = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+          run mkdir -p "$HOME/Library/Application Support/Mozilla/NativeMessagingHosts"
+        '';
+      })
+    ];
   };
 
   programs = {
