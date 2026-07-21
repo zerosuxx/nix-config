@@ -20,6 +20,7 @@ in
 
 final: prev: {
   azure-cli        = unstable.azure-cli;
+  claude-code      = unstable.claude-code;
   devbox           = unstable.devbox;
   gh               = unstable.gh;
   goreleaser       = unstable.goreleaser;
