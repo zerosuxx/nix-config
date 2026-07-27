@@ -35,6 +35,7 @@ pkgs: with pkgs; [
   # nixpkgs-review
   python3.out
   ripgrep
+  ruff # python linter
   statix
   tzdata
   wget
