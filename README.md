@@ -45,9 +45,15 @@ $ sudo NIX_CONFIG="experimental-features = nix-command flakes" nix run nix-darwi
 
 ### Bootstrap with Nix-On-Droid
 ```shell
-$ sh scripts/init-hm-nix-on-droid.sh # for use home-manager
-# or
-$ nix-on-droid switch --flake . # for use nix-on-droid
+# Download and install the patched proot required for 26.05
+$ sh scripts/fix-nix-on-droid-proot.sh
+
+# Restart the shell/session
+# Then initialize Home Manager
+$ sh scripts/init-hm-nix-on-droid.sh
+
+# Or, if using Nix-on-Droid directly:
+$ nix-on-droid switch --flake .
 ```
 
 ### Update flake
