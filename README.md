@@ -43,16 +43,25 @@ $ softwareupdate --install-rosetta
 $ sudo NIX_CONFIG="experimental-features = nix-command flakes" nix run nix-darwin -- switch --impure --flake .
 ```
 
-### Bootstrap with Nix-On-Droid
+### Bootstrap with Nix-on-Droid
+
+First, install the patched `proot-static` required for Nix-on-Droid 26.05:
+
 ```shell
-# Download and install the patched proot required for 26.05
 $ sh scripts/fix-nix-on-droid-proot.sh
+```
 
-# Restart the shell/session
-# Then initialize Home Manager
+Restart the shell/session so that the patched `proot-static` is activated.
+
+Then initialize the Home Manager environment:
+
+```shell
 $ sh scripts/init-hm-nix-on-droid.sh
+```
 
-# Or, if using Nix-on-Droid directly:
+Alternatively, if using Nix-on-Droid directly:
+
+```shell
 $ nix-on-droid switch --flake .
 ```
 
