@@ -8,7 +8,7 @@ TARGET="/data/data/com.termux.nix/files/usr/bin/.proot-static.new"
 nix-store --realise "$STORE_PATH"
 
 cp "$STORE_PATH/bin/proot-static" "$TARGET"
-chmod 700 "$TARGET"
+chmod +x "$TARGET"
 
 echo "Patched proot installed:"
 sha256sum "$TARGET"
