@@ -70,4 +70,5 @@ $ nix-on-droid switch --flake .
 $ nix flake update
 $ nix flake update zerosuxx-nixpkgs
 $ nix flake update nixpkgs-master
+$ nix flake update nixpkgs-unstable
 ```

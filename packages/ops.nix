@@ -2,6 +2,7 @@ pkgs: with pkgs; [
   (pkgs.azure-cli.withExtensions [
     pkgs.azure-cli.extensions.azure-devops
   ])
+  bws
   claude-code
   codex
   gh
