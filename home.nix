@@ -9,6 +9,7 @@ in
 {
   imports = [
     ./home/bash.nix
+    ./home/claude-commit.nix
     ./home/git.nix
     ./home/k9s.nix
     ./home/packages.nix
