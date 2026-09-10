@@ -3,7 +3,7 @@
     system = "aarch64-linux";
     config = {
       packages = pkgs: with pkgs; [
-        termux-am
+        termux-api
       ];
     };
   };

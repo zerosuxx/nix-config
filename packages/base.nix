@@ -38,6 +38,5 @@ pkgs: with pkgs; [
   statix
   tzdata
   wget
-  xclip
   yq-go
 ]
