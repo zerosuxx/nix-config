@@ -26,11 +26,15 @@ final: prev: {
   google-cloud-sdk = unstable.google-cloud-sdk;
   helmfile         = unstable.helmfile;
   k9s              = unstable.k9s;
+  oci-cli          = unstable.oci-cli;
   ollama           = unstable.ollama;
   ruby_4_0         = unstable.ruby_4_0;
 
-  labctl     = zerosuxx.labctl;
-  terraform  = zerosuxx.terraform;
+  coderabbit-cli = zerosuxx.coderabbit-cli;
+  labctl         = zerosuxx.labctl;
+  sofka          = zerosuxx.sofka;
+  termux-am      = zerosuxx.termux-am;
+  terraform      = zerosuxx.terraform;
 
   claude-code = master.claude-code;
   terragrunt  = master.terragrunt;

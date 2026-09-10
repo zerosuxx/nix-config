@@ -1,7 +1,11 @@
 {
   "nix-on-droid@localhost" = {
     system = "aarch64-linux";
-    config = { };
+    config = {
+      packages = pkgs: with pkgs; [
+        termux-am
+      ];
+    };
   };
 
   "zero@home-zero-linux-pc" = {

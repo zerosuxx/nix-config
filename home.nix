@@ -38,6 +38,10 @@ in
               cat "${builtins.toString ./dotfiles/termux/colors.properties}" > "$HOME/.termux/colors.properties"; }'
           run ln -f -s /android/system/bin/linker64 /system/bin/linker64
           run ln -f -s /android/system/bin/ping /system/bin/ping
+          run ln -f -s /android/system/bin/logcat /system/bin/logcat
+          run ln -f -s /android/system/bin/app_process /system/bin/app_process
+          run ln -f -s /android/system/bin/dumpsys /system/bin/dumpsys
+          cp /android/system/etc/public.libraries.txt /system/etc/public.libraries.txt
           run sh -c '[ -L "$HOME/sdcard" ] || ln -s /sdcard "$HOME/sdcard"'
           run mkdir -p "$HOME/.npm/lib"
         '';

@@ -4,6 +4,7 @@ pkgs: with pkgs; [
   ])
   bws
   claude-code
+  coderabbit-cli
   codex
   gh
   (pkgs.google-cloud-sdk.withExtraComponents [
@@ -28,7 +29,8 @@ pkgs: with pkgs; [
     ];
   })
   labctl
-  teller
+  oci-cli
+  sofka
   terraform
   terragrunt
 ]
