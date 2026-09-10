@@ -14,6 +14,10 @@
 
       # shell
       EDITOR = "nano";
+      PAGER = "less";
+      # -R: keep colors, --mouse: scroll wheel / touch scrolling,
+      # --wheel-lines: lines per scroll step, -F/-X: don't page short output
+      LESS = "-R -F -X --mouse --wheel-lines=3";
       TZ = "Europe/Budapest";
       SHELL = "${pkgs.zsh}/bin/zsh";
 

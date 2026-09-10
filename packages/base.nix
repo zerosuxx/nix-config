@@ -16,7 +16,7 @@ pkgs: with pkgs; [
   gzip
   htop
   jq
-  # less
+  less
   # libuuid
   nano
   nodejs_22
