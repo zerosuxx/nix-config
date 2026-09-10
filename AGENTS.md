@@ -15,11 +15,27 @@ nix flake show --json
 nix eval --json '.#homeConfigurations' --apply 'builtins.attrNames'
 ```
 
+macOS hosts are exported separately, under `darwinConfigurations`:
+
+```sh
+nix eval --json '.#darwinConfigurations' --apply 'builtins.attrNames'
+```
+
 Current configuration keys:
 
-- `nix-on-droid@localhost` (aarch64-linux, the Termux device)
-- `zero@home-zero-linux-pc`
-- `zero@zeroGo`
+`homeConfigurations`
+
+- `nix-on-droid@localhost` — aarch64-linux, the Termux device
+- `zero@home-zero-linux-pc` — x86_64-linux
+- `zero@zeroGo` — x86_64-linux
+
+`darwinConfigurations`
+
+- `zero-m3-max` — aarch64-darwin
+- `zero-m5-max` — aarch64-darwin
+
+Note the darwin keys drop the user prefix: `hosts.nix` defines them as
+`tmohos@zero-m3-max` / `tmohos@zero-m5-max`, but they are exported bare.
 
 ## Evaluating a configuration
 
@@ -32,7 +48,10 @@ Definition values:
 - In `<unknown-file>': ""
 ```
 
-This is **not** a config error. Pass `--impure` with the environment set explicitly:
+This is **not** a config error. `home.nix` reads both `$HOME` and `$USER` via
+`builtins.getEnv`, so both must be present — dropping `USER` fails instead with
+`Failed assertions: - Username could not be determined`. Pass `--impure` with the
+environment set explicitly:
 
 ```sh
 env HOME=/data/data/com.termux.nix/files/home USER=nix-on-droid \
@@ -75,21 +94,6 @@ nix flake update zerosuxx-nixpkgs
 
 Prefer `nix flake update <input>` over a bare `nix flake update`, which churns
 every input and produces a large, hard-to-review lock diff.
-
-## flake.lock hygiene
-
-`flake.lock` is generated — never hand-edit it. If it ends up with conflict markers
-(commonly from a `git pull --rebase` autostash that failed to reapply), discard it
-and regenerate rather than resolving by hand:
-
-```sh
-git checkout -- flake.lock
-nix flake update <input>   # re-apply the intended bump
-```
-
-Check `git stash list` after such a conflict: a leftover `autostash` entry may hold
-a stale copy of the working tree. Diff it against the current files before dropping
-or restoring it — restoring blindly can revert newer committed work.
 
 ## Conventions
 
