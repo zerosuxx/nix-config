@@ -90,10 +90,31 @@ nix eval --json 'github:zerosuxx/nixpkgs#packages.aarch64-linux' \
 nix flake update zerosuxx-nixpkgs
 
 # 3. Add to packages/overlays.nix and the relevant packages/*.nix list
+
+# 4. Activate, so the new version lands in the profile / on PATH
+rld
 ```
 
 Prefer `nix flake update <input>` over a bare `nix flake update`, which churns
 every input and produces a large, hard-to-review lock diff.
+
+## Activating changes
+
+A `flake.lock` bump only repins the input — the profile and `$PATH` keep serving
+the previously activated generation until the configuration is switched. So after
+updating the lock (or editing any config), activate with the `rld` alias:
+
+```sh
+rld
+```
+
+It is defined in `home/zsh.nix` and expands per platform to
+`home-manager switch --impure --flake ~/nix-config`, or on Darwin to
+`sudo darwin-rebuild switch --impure --flake ~/nix-config`. The companion alias
+`rlb` rolls back to the previous generation.
+
+Because it is a zsh alias, it is unavailable in a non-interactive shell — run the
+expanded command there, or ask the user to run `rld` themselves.
 
 ## Conventions
 
