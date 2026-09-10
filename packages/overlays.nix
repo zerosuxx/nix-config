@@ -20,7 +20,6 @@ in
 
 final: prev: {
   azure-cli        = unstable.azure-cli;
-  claude-code      = unstable.claude-code;
   devbox           = unstable.devbox;
   gh               = unstable.gh;
   goreleaser       = unstable.goreleaser;
@@ -33,5 +32,6 @@ final: prev: {
   labctl     = zerosuxx.labctl;
   terraform  = zerosuxx.terraform;
 
-  terragrunt = master.terragrunt;
+  claude-code = master.claude-code;
+  terragrunt  = master.terragrunt;
 }
