@@ -33,6 +33,7 @@ final: prev: {
   coderabbit-cli = zerosuxx.coderabbit-cli;
   labctl         = zerosuxx.labctl;
   sofka          = zerosuxx.sofka;
+  termux-am      = zerosuxx.termux-am;
   termux-api     = zerosuxx.termux-api;
   terraform      = zerosuxx.terraform;
 
