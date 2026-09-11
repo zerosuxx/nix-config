@@ -31,6 +31,7 @@ pkgs: with pkgs; [
   labctl
   oci-cli
   sofka
+  sentry-cli
   terraform
   terragrunt
 ]
