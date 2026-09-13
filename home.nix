@@ -37,12 +37,6 @@ in
               cat "${builtins.toString ./dotfiles/termux/termux.properties}" > "$HOME/.termux/termux.properties"; } && \
             { [ -f "$HOME/.termux/colors.properties" ] || \
               cat "${builtins.toString ./dotfiles/termux/colors.properties}" > "$HOME/.termux/colors.properties"; }'
-          # The seeding above only runs for a fresh file, so make sure an
-          # existing termux.properties gains the setting too. Without it the
-          # content provider refuses every file termux-open hands out, so
-          # `xdg-open some-file` opens a chooser and then fails to read.
-          run sh -c 'grep -q "^[[:space:]]*allow-external-apps" "$HOME/.termux/termux.properties" || \
-            printf "\nallow-external-apps = true\n" >> "$HOME/.termux/termux.properties"'
           run ln -f -s /android/system/bin/linker64 /system/bin/linker64
           run ln -f -s /android/system/bin/ping /system/bin/ping
           run ln -f -s /android/system/bin/logcat /system/bin/logcat
