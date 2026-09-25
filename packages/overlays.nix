@@ -20,6 +20,7 @@ in
 
 final: prev: {
   azure-cli        = unstable.azure-cli;
+  bws              = unstable.bws;
   devbox           = unstable.devbox;
   gh               = unstable.gh;
   goreleaser       = unstable.goreleaser;
