@@ -28,11 +28,11 @@ final: prev: {
   helmfile         = unstable.helmfile;
   k9s              = unstable.k9s;
   oci-cli          = unstable.oci-cli;
-  ollama           = unstable.ollama;
   ruby_4_0         = unstable.ruby_4_0;
 
   coderabbit-cli = zerosuxx.coderabbit-cli;
   labctl         = zerosuxx.labctl;
+  ollama         = zerosuxx.ollama;
   sofka          = zerosuxx.sofka;
   termux-am      = zerosuxx.termux-am;
   termux-api     = zerosuxx.termux-api;
