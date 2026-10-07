@@ -23,7 +23,6 @@ in
 
 final: prev: {
   azure-cli        = unstable.azure-cli;
-  bws              = unstable.bws;
   devbox           = unstable.devbox;
   gh               = unstable.gh;
   goreleaser       = unstable.goreleaser;
@@ -33,6 +32,7 @@ final: prev: {
   oci-cli          = unstable.oci-cli;
   ruby_4_0         = unstable.ruby_4_0;
 
+  bws            = zerosuxx.bws;
   coderabbit-cli = zerosuxx.coderabbit-cli;
   labctl         = zerosuxx.labctl;
   ollama         = zerosuxx.ollama;
