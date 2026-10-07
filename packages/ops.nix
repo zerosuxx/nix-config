@@ -8,6 +8,7 @@ pkgs: with pkgs; [
   coderabbit-cli
   codex
   gh
+  github-copilot-cli
   # (pkgs.google-cloud-sdk.withExtraComponents [
   #   pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
   #   pkgs.google-cloud-sdk.components.pubsub-emulator

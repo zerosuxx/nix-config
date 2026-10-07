@@ -41,8 +41,9 @@ final: prev: {
   termux-api     = zerosuxx.termux-api;
   terraform      = zerosuxx.terraform;
 
-  antigravity-cli = master.antigravity-cli;
-  claude-code     = master.claude-code;
-  terragrunt      = master.terragrunt;
+  antigravity-cli    = master.antigravity-cli;
+  claude-code        = master.claude-code;
+  github-copilot-cli = master.github-copilot-cli;
+  terragrunt         = master.terragrunt;
 }
 // builtins.mapAttrs (name: source: sources.${source}.${name}) packageSources
