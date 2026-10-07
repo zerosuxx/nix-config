@@ -27,9 +27,13 @@ $ echo "zerosuxx@gmail.com $(cat ~/.ssh/id_rsa.pub)" > ~/.ssh/allowed_signers
 
 ### Bootstrap with Home Manager
 ```shell
-$ export NIX_CONFIG="experimental-features = nix-command flakes"
-$ nix run home-manager -- switch --impure --flake .
+$ sh scripts/init-hm.sh
 ```
+
+The script lowers the priority of the packages the Nix installer put into the
+profile (its own `nix` collides with the one from `packages/linux.nix`), then
+runs the first `home-manager switch`. Pass a flake ref to pick another host,
+e.g. `sh scripts/init-hm.sh '.#ubuntu@docker-amd64'`.
 
 ### Bootstrap with Nix Darwin
 ```shell
@@ -56,7 +60,7 @@ Restart the shell/session so that the patched `proot-static` is activated.
 Then initialize the Home Manager environment:
 
 ```shell
-$ sh scripts/init-hm-nix-on-droid.sh
+$ sh scripts/init-hm.sh
 ```
 
 Alternatively, if using Nix-on-Droid directly:

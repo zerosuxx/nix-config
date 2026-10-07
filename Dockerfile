@@ -22,13 +22,7 @@ WORKDIR /home/ubuntu/nix-config
 
 ENV NIX_CONFIG="experimental-features = nix-command flakes"
 
-# packages/base.nix brings its own nix, which collides with the one the
-# installer put into the profile. Lower the priority of the installer's
-# packages (as scripts/init-hm-nix-on-droid.sh does), so home-manager wins
-# the conflict while nix stays on PATH for the switch itself.
-RUN arch=$(dpkg --print-architecture) \
-    && for pkg in $(nix-env -q); do nix-env --set-flag priority 10 "$pkg"; done \
-    && nix run home-manager -- switch -b backup --impure --flake ".#$USER@docker-$arch"
+RUN sh scripts/init-hm.sh ".#$USER@docker-$(dpkg --print-architecture)"
 
 # Single-user Nix needs no daemon; just keep the container alive for
 # `docker compose exec`. Kubernetes agent pods override the command anyway.

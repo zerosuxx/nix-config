@@ -24,7 +24,6 @@ pkgs: with pkgs; [
   ollama
   openssh
   openssl
-  nix
   nix-direnv
   # manix
   # nix-index
