@@ -7,11 +7,11 @@ pkgs: with pkgs; [
   coderabbit-cli
   codex
   gh
-  (pkgs.google-cloud-sdk.withExtraComponents [
-    pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
-    pkgs.google-cloud-sdk.components.pubsub-emulator
-  ])
-  google-cloud-sql-proxy
+  # (pkgs.google-cloud-sdk.withExtraComponents [
+  #   pkgs.google-cloud-sdk.components.gke-gcloud-auth-plugin
+  #   pkgs.google-cloud-sdk.components.pubsub-emulator
+  # ])
+  # google-cloud-sql-proxy
   go-containerregistry
   helmfile
   k9s
@@ -30,8 +30,8 @@ pkgs: with pkgs; [
   })
   labctl
   oci-cli
-  sofka
   sentry-cli
+  sofka
   terraform
   terragrunt
 ]
