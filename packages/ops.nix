@@ -34,4 +34,7 @@ pkgs: with pkgs; [
   sofka
   terraform
   terragrunt
+] ++ lib.optionals (stdenv.hostPlatform.system != "x86_64-darwin") [
+  # no x86_64-darwin build
+  antigravity-cli
 ]

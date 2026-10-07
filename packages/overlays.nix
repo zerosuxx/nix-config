@@ -38,6 +38,7 @@ final: prev: {
   termux-api     = zerosuxx.termux-api;
   terraform      = zerosuxx.terraform;
 
-  claude-code = master.claude-code;
-  terragrunt  = master.terragrunt;
+  antigravity-cli = master.antigravity-cli;
+  claude-code     = master.claude-code;
+  terragrunt      = master.terragrunt;
 }
