@@ -14,6 +14,25 @@
     config = { };
   };
 
+  # Docker image (Dockerfile); bubblewrap is the codex sandbox
+  "ubuntu@docker-arm64" = {
+    system = "aarch64-linux";
+    config = {
+      packages = pkgs: with pkgs; [
+        bubblewrap
+      ];
+    };
+  };
+
+  "ubuntu@docker-amd64" = {
+    system = "x86_64-linux";
+    config = {
+      packages = pkgs: with pkgs; [
+        bubblewrap
+      ];
+    };
+  };
+
   "zero@zeroGo" = {
     system = "x86_64-linux";
     config = {

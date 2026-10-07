@@ -27,6 +27,9 @@ Current configuration keys:
 
 - `nix-on-droid@localhost` — aarch64-linux, the Termux device
 - `zero@home-zero-linux-pc` — x86_64-linux
+- `ubuntu@docker-amd64` / `ubuntu@docker-arm64` — the Docker image (`Dockerfile`), picked
+  by `dpkg --print-architecture`; built multi-arch and pushed to ghcr.io by the
+  `docker` workflow (manual `workflow_dispatch`)
 - `zero@zeroGo` — x86_64-linux
 
 `darwinConfigurations`

@@ -1,7 +1,5 @@
-version: '3.9'
-
 services:
   nix:
     build: .
     volumes:
-      - ./:/home/zero/nix-config
+      - ./:/home/ubuntu/nix-config

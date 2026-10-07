@@ -1,25 +1,30 @@
-FROM ubuntu
+FROM ubuntu:26.04
 
-RUN apt update
-RUN apt install -y curl xz-utils
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ca-certificates curl xz-utils \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN useradd -m zero
-RUN mkdir /nix && chown zero /nix
+# Use the image's built-in `ubuntu` user (uid 1000), so bind mounts and
+# Kubernetes `runAsUser: 1000` line up with it.
+RUN mkdir /nix && chown ubuntu /nix
 
-USER zero
+USER ubuntu
 
-ENV USER=zero
+ENV USER=ubuntu
 
-RUN curl -L https://nixos.org/nix/install | sh
+RUN curl -L https://nixos.org/nix/install | sh -s -- --no-daemon
 
-ENV PATH="/home/zero/.nix-profile/bin:${PATH}"
+ENV PATH="/home/ubuntu/.nix-profile/bin:${PATH}"
 
-COPY --chown=zero:zero . /home/zero/nix-config
+COPY --chown=ubuntu:ubuntu . /home/ubuntu/nix-config
 
-WORKDIR /home/zero/nix-config
+WORKDIR /home/ubuntu/nix-config
 
 ENV NIX_CONFIG="experimental-features = nix-command flakes"
 
-RUN nix run home-manager -- switch --impure --flake .
+RUN arch=$(dpkg --print-architecture) \
+    && nix run home-manager -- switch -b backup --impure --flake ".#$USER@docker-$arch"
 
-CMD ["sh", "-c", "chown $USER:$USER . && nix-daemon --daemon"]
+# Single-user Nix needs no daemon; just keep the container alive for
+# `docker compose exec`. Kubernetes agent pods override the command anyway.
+CMD ["sleep", "infinity"]
