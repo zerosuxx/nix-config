@@ -23,7 +23,7 @@
        DONT_PROMPT_WSL_INSTALL = 1;
       };
       packages = pkgs: with pkgs; [
-        neofetch
+        fastfetch
         vscode
       ];
     };
