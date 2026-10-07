@@ -22,7 +22,11 @@ WORKDIR /home/ubuntu/nix-config
 
 ENV NIX_CONFIG="experimental-features = nix-command flakes"
 
-RUN sh scripts/init-hm.sh ".#$USER@docker-$(dpkg --print-architecture)"
+# Collect garbage in the same layer: packages built from source (unfree or not
+# yet cached on Hydra) leave their whole build closure in the store otherwise.
+RUN sh scripts/init-hm.sh ".#$USER@docker-$(dpkg --print-architecture)" \
+    && nix-collect-garbage -d \
+    && nix-store --optimise
 
 # Single-user Nix needs no daemon; just keep the container alive for
 # `docker compose exec`. Kubernetes agent pods override the command anyway.
