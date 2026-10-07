@@ -34,10 +34,12 @@ jobs:
         run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
 
       # Full history: the flake is evaluated from the git tree inside the build,
-      # and Nix refuses shallow repositories.
+      # and Nix refuses shallow repositories. `.git` is copied into the image,
+      # so no credentials may be left in it.
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - uses: docker/setup-buildx-action@v4
 
