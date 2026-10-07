@@ -46,4 +46,16 @@
     };
     config = { };
   };
+
+  # Intel iMac: nixpkgs / nix-darwin / home-manager support ends with 26.05
+  "tmohos@zero-imac" = {
+    system = "x86_64-darwin";
+    release = "26.05";
+    overlayInputs = {
+      unstable = "nixpkgs-2605";
+      master   = "nixpkgs-2605";
+    };
+    darwin = { };
+    config = { };
+  };
 }

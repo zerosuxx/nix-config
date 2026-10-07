@@ -15,7 +15,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     brew-src = {
-      url = "github:Homebrew/brew/5.1.11";
+      url = "github:Homebrew/brew/7.0.8";
       flake = false;
     };
     nix-homebrew = {
@@ -30,24 +30,52 @@
       url = "github:zerosuxx/nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Pinned 26.05 release, for hosts with `release = "26.05"` in hosts.nix
+    # (e.g. Intel Macs, whose support ends with 26.05)
+    nixpkgs-2605.url = "github:nixos/nixpkgs/nixos-26.05";
+    nix-darwin-2605 = {
+      url = "github:LnL7/nix-darwin/nix-darwin-26.05";
+      inputs.nixpkgs.follows = "nixpkgs-2605";
+    };
+    home-manager-2605 = {
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs-2605";
+    };
   };
 
-  outputs = inputs@{ self, utils, nixpkgs, nixpkgs-unstable, nixpkgs-master, nix-index-database, nix-darwin, nix-homebrew, brew-src, home-manager, zerosuxx-nixpkgs, ... }:
+  outputs = inputs@{ self, utils, nixpkgs, nixpkgs-unstable, nixpkgs-master, nix-index-database, nix-darwin, nix-homebrew, brew-src, home-manager, zerosuxx-nixpkgs, nixpkgs-2605, nix-darwin-2605, home-manager-2605, ... }:
     let
       lib = nixpkgs.lib;
 
-      overlays = system: import ./packages/overlays.nix {
-        nixpkgs-unstable = nixpkgs-unstable;
-        nixpkgs-master = nixpkgs-master;
+      # Input sets selectable per host via `release` in hosts.nix
+      releases = {
+        default = { inherit nixpkgs nix-darwin home-manager; };
+        "26.05" = {
+          nixpkgs = nixpkgs-2605;
+          nix-darwin = nix-darwin-2605;
+          home-manager = home-manager-2605;
+        };
+      };
+      releaseOf = host: releases.${host.release or "default"};
+
+      # Per-host override of the overlay sources via `overlayInputs` in hosts.nix,
+      # given as flake input names, e.g. { unstable = "nixpkgs-2605"; }
+      overlayInput = host: key: default:
+        if host ? overlayInputs.${key} then inputs.${host.overlayInputs.${key}} else default;
+
+      overlays = host: system: import ./packages/overlays.nix {
+        nixpkgs-unstable = overlayInput host "unstable" nixpkgs-unstable;
+        nixpkgs-master = overlayInput host "master" nixpkgs-master;
         zerosuxx-nixpkgs = zerosuxx-nixpkgs;
         inherit system;
       };
 
-      pkgsForSystem = system:
-        import nixpkgs {
+      pkgsForSystem = host: system:
+        import (releaseOf host).nixpkgs {
           inherit system;
           config = { allowUnfree = true; };
-          overlays = [ (overlays system) ];
+          overlays = [ (overlays host system) ];
         };
 
       hosts = import ./hosts.nix;
@@ -59,8 +87,11 @@
 
       darwinConfigsFromHosts = lib.mapAttrs'
         (name: value:
-          let username = usernameOf name; in
-          lib.nameValuePair (hostnameOf name) (nix-darwin.lib.darwinSystem {
+          let
+            username = usernameOf name;
+            rel = releaseOf value;
+          in
+          lib.nameValuePair (hostnameOf name) (rel.nix-darwin.lib.darwinSystem {
             system = value.system;
             modules = [
               nix-homebrew.darwinModules.nix-homebrew
@@ -74,11 +105,11 @@
                 };
               }
               (value.darwin.configModule or ./hosts/darwin/configuration.nix)
-              home-manager.darwinModules.home-manager
+              rel.home-manager.darwinModules.home-manager
               {
                 nixpkgs = {
                   config = { allowUnfree = true; };
-                  overlays = [ (overlays value.system) ];
+                  overlays = [ (overlays value value.system) ];
                 };
                 home-manager = {
                   useGlobalPkgs = true;
@@ -97,9 +128,9 @@
         )
         darwinHosts;
 
-      mkHomeConfiguration = args: home-manager.lib.homeManagerConfiguration (rec {
+      mkHomeConfiguration = args: (releaseOf args.host).home-manager.lib.homeManagerConfiguration (rec {
         modules = defaultModules ++ (args.modules or [ ]);
-        pkgs = pkgsForSystem (args.system or "x86_64-linux");
+        pkgs = pkgsForSystem args.host (args.system or "x86_64-linux");
       } // { inherit (args) extraSpecialArgs; });
     in
     utils.lib.eachSystem [
@@ -108,11 +139,12 @@
       "aarch64-darwin"
       "x86_64-darwin"
     ]
-      (system: rec { legacyPackages = pkgsForSystem system; }) // {
+      (system: rec { legacyPackages = pkgsForSystem { } system; }) // {
       homeConfigurations = builtins.mapAttrs
         (name: value:
           mkHomeConfiguration {
             inherit (value) system;
+            host = value;
             extraSpecialArgs = { cfg = value.config; };
           }
         )

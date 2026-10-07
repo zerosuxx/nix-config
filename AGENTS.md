@@ -33,9 +33,24 @@ Current configuration keys:
 
 - `zero-m3-max` — aarch64-darwin
 - `zero-m5-max` — aarch64-darwin
+- `zero-imac` — x86_64-darwin, pinned to 26.05 (see below)
 
 Note the darwin keys drop the user prefix: `hosts.nix` defines them as
 `tmohos@zero-m3-max` / `tmohos@zero-m5-max`, but they are exported bare.
+
+## Per-host release pinning
+
+Nixpkgs 26.05 is the last release supporting x86_64-darwin, so a host can opt out
+of the main inputs in `hosts.nix`:
+
+- `release = "26.05";` — uses the `*-2605` inputs (`nixpkgs`, `nix-darwin`,
+  `home-manager`) instead of the main ones. `zerosuxx-nixpkgs` is shared by
+  all hosts.
+- `overlayInputs = { unstable = "…"; master = "…"; };` — replaces the inputs
+  behind the overlay's `unstable` / `master` sources, given as flake input
+  names. Either key may be omitted.
+
+Hosts without these keep the main inputs, so those can be bumped independently.
 
 ## Evaluating a configuration
 
