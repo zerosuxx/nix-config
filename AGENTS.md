@@ -49,6 +49,9 @@ of the main inputs in `hosts.nix`:
 - `overlayInputs = { unstable = "…"; master = "…"; };` — replaces the inputs
   behind the overlay's `unstable` / `master` sources, given as flake input
   names. Either key may be omitted.
+- `packageSources = { <package> = "unstable" | "master" | "zerosuxx"; };` —
+  takes the listed packages from that overlay source on this host only,
+  overriding the defaults in `packages/overlays.nix`.
 
 Hosts without these keep the main inputs, so those can be bumped independently.
 

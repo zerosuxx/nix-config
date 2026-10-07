@@ -2,6 +2,7 @@
 , nixpkgs-master
 , zerosuxx-nixpkgs
 , system
+, packageSources ? { }
 }:
 
 let
@@ -16,6 +17,8 @@ let
   };
 
   zerosuxx = zerosuxx-nixpkgs.packages.${system};
+
+  sources = { inherit unstable master zerosuxx; };
 in
 
 final: prev: {
@@ -38,8 +41,8 @@ final: prev: {
   termux-api     = zerosuxx.termux-api;
   terraform      = zerosuxx.terraform;
 
-  # nixpkgs dropped the x86_64-darwin build, zerosuxx still ships it
-  antigravity-cli = if system == "x86_64-darwin" then zerosuxx.antigravity-cli else master.antigravity-cli;
+  antigravity-cli = master.antigravity-cli;
   claude-code     = master.claude-code;
   terragrunt      = master.terragrunt;
 }
+// builtins.mapAttrs (name: source: sources.${source}.${name}) packageSources

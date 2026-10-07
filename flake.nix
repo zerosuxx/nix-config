@@ -68,6 +68,7 @@
         nixpkgs-unstable = overlayInput host "unstable" nixpkgs-unstable;
         nixpkgs-master = overlayInput host "master" nixpkgs-master;
         zerosuxx-nixpkgs = zerosuxx-nixpkgs;
+        packageSources = host.packageSources or { };
         inherit system;
       };
 

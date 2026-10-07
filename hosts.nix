@@ -55,6 +55,9 @@
       unstable = "nixpkgs-2605";
       master   = "nixpkgs-2605";
     };
+    packageSources = {
+      antigravity-cli = "zerosuxx";
+    };
     darwin = { };
     config = { };
   };
