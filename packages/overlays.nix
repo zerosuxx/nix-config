@@ -43,6 +43,7 @@ final: prev: {
 
   antigravity-cli    = master.antigravity-cli;
   claude-code        = master.claude-code;
+  codex              = master.codex;
   github-copilot-cli = master.github-copilot-cli;
   terragrunt         = master.terragrunt;
 }
