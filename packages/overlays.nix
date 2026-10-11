@@ -34,6 +34,7 @@ final: prev: {
 
   bws            = zerosuxx.bws;
   coderabbit-cli = zerosuxx.coderabbit-cli;
+  codex          = zerosuxx.codex;
   labctl         = zerosuxx.labctl;
   ollama         = zerosuxx.ollama;
   sofka          = zerosuxx.sofka;
@@ -43,7 +44,6 @@ final: prev: {
 
   antigravity-cli    = master.antigravity-cli;
   claude-code        = master.claude-code;
-  codex              = master.codex;
   github-copilot-cli = master.github-copilot-cli;
   terragrunt         = master.terragrunt;
 }

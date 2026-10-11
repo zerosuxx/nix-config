@@ -12,7 +12,7 @@
     name = "claude-commit-msg";
     runtimeInputs = [ pkgs.git pkgs.coreutils pkgs.gnused pkgs.gnugrep ];
     text = ''
-      MODEL="''${ZSH_CLAUDE_COMMIT_MODEL:-claude-haiku-4-5-20251001}"
+      MODEL="''${ZSH_CLAUDE_COMMIT_MODEL:-haiku}"
       MAX_DIFF_BYTES="''${ZSH_CLAUDE_COMMIT_MAX_DIFF_BYTES:-100000}"
 
       git rev-parse --git-dir >/dev/null 2>&1 || { echo "not a git repo" >&2; exit 1; }
