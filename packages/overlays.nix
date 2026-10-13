@@ -35,6 +35,7 @@ final: prev: {
   bws            = zerosuxx.bws;
   coderabbit-cli = zerosuxx.coderabbit-cli;
   codex          = zerosuxx.codex;
+  kubelogin      = zerosuxx.kubelogin;
   labctl         = zerosuxx.labctl;
   ollama         = zerosuxx.ollama;
   sofka          = zerosuxx.sofka;

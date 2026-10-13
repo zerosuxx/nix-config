@@ -20,6 +20,7 @@ pkgs: with pkgs; [
   kubectl
   kubectl-view-allocations
   kubectx
+  kubelogin
   kustomize
   krew
   (pkgs.wrapHelm pkgs.kubernetes-helm {
