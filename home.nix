@@ -12,12 +12,14 @@ in
     ./home/claude-commit.nix
     ./home/git.nix
     ./home/k9s.nix
+    ./home/nix-on-droid.nix
     ./home/packages.nix
     ./home/variables.nix
     ./home/zsh.nix
   ] ++ lib.optional (builtins.pathExists ./home/ssh.nix) ./home/ssh.nix;
   
   zshModule.isTermux = isTermux;
+  nixOnDroidModule.isTermux = isTermux;
   
   home = {
     homeDirectory = mkIf isLinux (builtins.getEnv "HOME");

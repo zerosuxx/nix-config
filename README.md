@@ -63,10 +63,15 @@ Then initialize the Home Manager environment:
 $ sh scripts/init-hm.sh
 ```
 
+The Nix-on-Droid system config lives in `nix-on-droid/` (its own flake). On Termux, the
+Home Manager switch links it to `~/.config/nix-on-droid` and runs `nix-on-droid switch`
+whenever its files changed. The bootstrap config that a fresh install creates there is moved
+aside to `~/.config/nix-on-droid.bootstrap-<timestamp>`.
+
 Alternatively, if using Nix-on-Droid directly:
 
 ```shell
-$ nix-on-droid switch --flake .
+$ nix-on-droid switch --flake ./nix-on-droid
 ```
 
 ### Update flake
