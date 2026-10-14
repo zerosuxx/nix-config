@@ -2,7 +2,8 @@
 
 set -eu
 
-STORE_PATH="/nix/store/dvf2ck9bkw7yyrlkjk87xz1anaxsgrd6-proot-termux-static-aarch64-unknown-linux-android-unstable-2026-02-20"
+# Shared with the Nix-on-Droid config, which keeps this proot staged on every switch.
+STORE_PATH="$(cat "$(dirname "$0")/../nix-on-droid/proot-static-path")"
 TARGET="/data/data/com.termux.nix/files/usr/bin/.proot-static.new"
 
 nix-store --realise "$STORE_PATH"

@@ -45,9 +45,10 @@
 
     # The stock step stages this release's 2024 proot as /bin/.proot-static.new,
     # which login swaps in on the next cold start, replacing the patched proot
-    # that the 26.05 packages need (scripts/fix-nix-on-droid-proot.sh, same path).
+    # that the 26.05 packages need. The path is shared with
+    # scripts/fix-nix-on-droid-proot.sh, which stages it before the first switch.
     installProotStatic = ''
-      patched=/nix/store/dvf2ck9bkw7yyrlkjk87xz1anaxsgrd6-proot-termux-static-aarch64-unknown-linux-android-unstable-2026-02-20
+      patched=${lib.fileContents ./proot-static-path}
       $DRY_RUN_CMD nix-store --realise "$patched" > /dev/null
       if ! diff /bin/proot-static "$patched/bin/proot-static" > /dev/null; then
         $DRY_RUN_CMD cp $VERBOSE_ARG "$patched/bin/proot-static" /bin/.proot-static.tmp
