@@ -6,7 +6,9 @@ set -eu
 STORE_PATH="$(cat "$(dirname "$0")/../nix-on-droid/proot-static-path")"
 TARGET="/data/data/com.termux.nix/files/usr/bin/.proot-static.new"
 
-nix-store --realise "$STORE_PATH"
+# Same GC root as the config's installProotStatic step.
+mkdir -p "$HOME/.local/state/nix-on-droid"
+nix-store --realise "$STORE_PATH" --add-root "$HOME/.local/state/nix-on-droid/proot-static"
 
 cp "$STORE_PATH/bin/proot-static" "$TARGET"
 chmod +x "$TARGET"

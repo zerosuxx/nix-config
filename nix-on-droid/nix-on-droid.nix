@@ -49,7 +49,9 @@
     # scripts/fix-nix-on-droid-proot.sh, which stages it before the first switch.
     installProotStatic = ''
       patched=${lib.fileContents ./proot-static-path}
-      $DRY_RUN_CMD nix-store --realise "$patched" > /dev/null
+      # GC root, so a garbage collection can't drop it and force a re-download.
+      $DRY_RUN_CMD mkdir -p "$HOME/.local/state/nix-on-droid"
+      $DRY_RUN_CMD nix-store --realise "$patched" --add-root "$HOME/.local/state/nix-on-droid/proot-static" > /dev/null
       if ! diff /bin/proot-static "$patched/bin/proot-static" > /dev/null; then
         $DRY_RUN_CMD cp $VERBOSE_ARG "$patched/bin/proot-static" /bin/.proot-static.tmp
         $DRY_RUN_CMD chmod $VERBOSE_ARG u+w /bin/.proot-static.tmp
