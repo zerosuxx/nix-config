@@ -63,14 +63,13 @@
   # The app's LocalDnsForwarder (127.0.0.1:2053) resolves through Android, so
   # VPN (Twingate) and Private DNS work; -p makes proot rewrite ports below 1024
   # by +2000, so queries to 127.0.0.1:53 reach it. Without the forwarder the
-  # loopback refuses at once and glibc moves on: Twingate's DNS for its private
-  # records, then a public server (timeout:1 keeps the Twingate-off wait short).
+  # loopback refuses at once and glibc falls back to the public servers.
   build.extraProotOptions = [ "-p" ];
 
   environment.etc."resolv.conf".text = lib.mkForce ''
     nameserver 127.0.0.1
-    nameserver 100.95.0.251
     nameserver 1.1.1.1
+    nameserver 8.8.8.8
     options timeout:1
   '';
 
