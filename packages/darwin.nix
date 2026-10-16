@@ -38,6 +38,7 @@ pkgs: {
     "redis-insight"
     "slack"
     "sublime-text"
+    "tailscale-app"
     "teamviewer"
     "telegram"
     "transmission"

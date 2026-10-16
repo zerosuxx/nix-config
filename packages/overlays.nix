@@ -37,6 +37,7 @@ final: prev: {
   codex          = zerosuxx.codex;
   kubelogin      = zerosuxx.kubelogin;
   labctl         = zerosuxx.labctl;
+  kubelogin      = zerosuxx.kubelogin;
   ollama         = zerosuxx.ollama;
   sofka          = zerosuxx.sofka;
   termux-am      = zerosuxx.termux-am;
