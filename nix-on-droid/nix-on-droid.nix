@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, fontPkgs, ... }:
 
 {
   # Simply install just the packages
@@ -75,6 +75,11 @@
     nameserver 8.8.8.8
     options timeout:1
   '';
+
+  # Iosevka Term Nerd Font has every Nerd Font icon tuios draws and every
+  # symbol Claude Code draws (⏵ ⎿ ⏺ ✻ …); the default Android font has neither.
+  terminal.font =
+    "${fontPkgs.nerd-fonts.iosevka-term}/share/fonts/truetype/NerdFonts/IosevkaTerm/IosevkaTermNerdFontMono-Regular.ttf";
 
   # Read the changelog before changing this value
   system.stateVersion = "24.05";
