@@ -19,6 +19,7 @@ in
   ] ++ lib.optional (builtins.pathExists ./home/ssh.nix) ./home/ssh.nix;
   
   zshModule.isTermux = isTermux;
+  packagesModule.isTermux = isTermux;
   nixOnDroidModule.isTermux = isTermux;
   
   home = {
