@@ -15,6 +15,8 @@ in
   };
 
   config = lib.mkIf config.nixOnDroidModule.isTermux {
+    home.sessionVariables.BROWSER = "xdg-open";
+
     xdg.configFile."nix-on-droid".source = config.lib.file.mkOutOfStoreSymlink configDir;
 
     # A fresh Nix-on-Droid install creates ~/.config/nix-on-droid as a real directory
