@@ -34,10 +34,8 @@ final: prev: {
 
   bws            = zerosuxx.bws;
   coderabbit-cli = zerosuxx.coderabbit-cli;
-  codex          = zerosuxx.codex;
   kubelogin      = zerosuxx.kubelogin;
   labctl         = zerosuxx.labctl;
-  kubelogin      = zerosuxx.kubelogin;
   ollama         = zerosuxx.ollama;
   sofka          = zerosuxx.sofka;
   termux-am      = zerosuxx.termux-am;
@@ -46,6 +44,7 @@ final: prev: {
 
   antigravity-cli    = master.antigravity-cli;
   claude-code        = master.claude-code;
+  codex              = master.codex;
   github-copilot-cli = master.github-copilot-cli;
   terragrunt         = master.terragrunt;
 }

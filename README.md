@@ -74,6 +74,24 @@ Alternatively, if using Nix-on-Droid directly:
 $ nix-on-droid switch --flake ./nix-on-droid
 ```
 
+On Termux, `programs.codex.settings` declaratively generates `~/.codex/config.toml`
+with the following defaults to avoid Android/proot sandbox compatibility issues:
+
+```toml
+sandbox_mode = "danger-full-access"
+
+[features]
+daemon_auto_start = false
+```
+
+Commands have the current user's full file and network access; approval settings
+are unchanged. Configuration is managed in `home.nix`; interactive edits to the
+generated file are not persistent. For the first switch, back up the existing
+unmanaged config with `home-manager switch -b codex-backup --impure --flake ~/nix-config`.
+Subsequent changes can be applied with `rld`. Restart Codex afterward. If a shared daemon is already
+running, stop it with `codex app-server daemon stop`; `--no-daemon` also bypasses
+an already running daemon for a single session.
+
 ### Update flake
 ```shell
 $ nix flake update
