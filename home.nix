@@ -10,6 +10,7 @@ in
   imports = [
     ./home/bash.nix
     ./home/claude-commit.nix
+    ./home/codex.nix
     ./home/git.nix
     ./home/k9s.nix
     ./home/nix-on-droid.nix
@@ -58,17 +59,6 @@ in
   };
 
   programs = {
-    codex = mkIf isTermux {
-      enable = true;
-      settings = {
-        model = "gpt-6.1-sol";
-        model_reasoning_effort = "medium";
-        sandbox_mode = "danger-full-access";
-        features.daemon_auto_start = false;
-        tui.screen_reader_detection_done = true;
-      };
-    };
-
     home-manager = {
       enable = true;
     };
