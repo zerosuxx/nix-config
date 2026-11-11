@@ -12,8 +12,33 @@
     name = "claude-commit-msg";
     runtimeInputs = [ pkgs.git pkgs.coreutils pkgs.gnused pkgs.gnugrep ];
     text = ''
-      MODEL="''${ZSH_CLAUDE_COMMIT_MODEL:-haiku}"
+      PROVIDER="''${ZSH_COMMIT_PROVIDER:-claude}"
       MAX_DIFF_BYTES="''${ZSH_CLAUDE_COMMIT_MAX_DIFF_BYTES:-100000}"
+
+      case "$PROVIDER" in
+        claude) generator=(claude -p --model "''${ZSH_CLAUDE_COMMIT_MODEL:-haiku}") ;;
+        agy)
+          generator=(agy)
+          if [ -n "''${ZSH_AGY_COMMIT_MODEL:-}" ]; then
+            generator+=(--model "$ZSH_AGY_COMMIT_MODEL")
+          fi
+          ;;
+        *) echo "invalid ZSH_COMMIT_PROVIDER: $PROVIDER (expected claude or agy)" >&2; exit 1 ;;
+      esac
+      command -v "''${generator[0]}" >/dev/null 2>&1 || {
+        echo "$PROVIDER is not installed or not on PATH" >&2; exit 1;
+      }
+
+      generate_subject() {
+        if [ "$PROVIDER" = agy ]; then
+          # agy print mode takes the full prompt as an argument, not stdin.
+          local prompt
+          prompt=$(cat)
+          "''${generator[@]}" -p "$prompt"
+        else
+          "''${generator[@]}"
+        fi
+      }
 
       git rev-parse --git-dir >/dev/null 2>&1 || { echo "not a git repo" >&2; exit 1; }
 
@@ -59,6 +84,7 @@
       {
         cat <<'PROMPT'
       You are writing a git commit subject line.
+      Use only the supplied context. Do not use tools or access files.
 
       Output rules — follow exactly:
       - Output ONLY the subject line. No quotes, no backticks, no code fence,
@@ -72,7 +98,7 @@
         printf '\n## Recent commit subjects in this repo\n%s\n\n' "$recent"
         printf '## Diffstat (%s)\n%s\n\n' "$scope" "$stat"
         printf '## Diff (%s, may be truncated)\n%s\n' "$scope" "$diff"
-      } | claude -p --model "$MODEL" 2>/dev/null \
+      } | generate_subject \
         | tr -d '\r' \
         | grep -v '^[[:space:]]*$' \
         | head -1 \
@@ -84,7 +110,7 @@
 in {
   home.packages = [ claude-commit-msg ];
 
-  # Ctrl+G on the command line inserts a Claude-generated commit subject.
+  # Ctrl+G on the command line inserts an AI-generated commit subject.
   # Note: this rebinds zsh's default send-break.
   programs.zsh.initContent = lib.mkAfter ''
     _claude-commit-msg-widget() {
@@ -102,7 +128,7 @@ in {
       local pid=$!
       local i=0
       while kill -0 $pid 2>/dev/null; do
-        zle -R "''${spinner[$(( i % 10 + 1 ))]} asking claude…"
+        zle -R "''${spinner[$(( i % 10 + 1 ))]} asking ''${ZSH_COMMIT_PROVIDER:-claude}…"
         (( i++ ))
         sleep 0.12
       done
@@ -114,7 +140,7 @@ in {
       command rm -f $tmp $err
 
       if (( rc != 0 )) || [[ -z $msg ]]; then
-        zle -M "claude-commit: ''${errmsg:-no message generated}"
+        zle -M "commit-msg: ''${errmsg:-no message generated}"
         return 1
       fi
 

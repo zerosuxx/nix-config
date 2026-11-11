@@ -92,6 +92,31 @@ Subsequent changes can be applied with `rld`. Restart Codex afterward. If a shar
 running, stop it with `codex app-server daemon stop`; `--no-daemon` also bypasses
 an already running daemon for a single session.
 
+### Generate commit messages
+
+Press **Ctrl+G** in zsh to generate a Conventional Commit subject from the current
+diff and recent commits. Staged changes take priority; otherwise, unstaged and
+untracked changes are included. The message is inserted into the command line
+for review before committing.
+
+`ZSH_COMMIT_PROVIDER` selects the CLI: `agy` (configured default) or `claude`.
+The selected CLI must be installed and have an active authenticated session:
+sign in to `agy`, or to `claude`, before generating commit messages.
+
+To switch providers in the current shell:
+
+```shell
+export ZSH_COMMIT_PROVIDER=agy
+# or
+export ZSH_COMMIT_PROVIDER=claude
+```
+
+The persistent default is set in `home/variables.nix`; apply changes with `rld`
+and start a new login shell. Optional model overrides are
+`ZSH_CLAUDE_COMMIT_MODEL` (default: `haiku`) and `ZSH_AGY_COMMIT_MODEL` (default:
+the CLI's configured model). `ZSH_CLAUDE_COMMIT_MAX_DIFF_BYTES` limits the diff
+body for either provider (default: `100000` bytes).
+
 ### Update flake
 ```shell
 $ nix flake update

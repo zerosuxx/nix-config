@@ -20,6 +20,7 @@
       LESS = "-R -F -X --mouse --wheel-lines=3";
       TZ = "Europe/Budapest";
       SHELL = "${pkgs.zsh}/bin/zsh";
+      ZSH_COMMIT_PROVIDER = "agy";
 
       # k9s
       K9S_FEATURE_GATE_NODE_SHELL = "true";
