@@ -10,6 +10,7 @@ in
 
   nix = {
     package = pkgs.nix;
+    linux-builder.enable = true;
     extraOptions = ''
       auto-optimise-store = true
       experimental-features = nix-command flakes
