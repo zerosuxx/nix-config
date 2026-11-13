@@ -1,5 +1,11 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
+  termuxPing = (pkgs.writeShellScriptBin "ping" ''
+    exec /system/bin/ping "$@"
+  '').overrideAttrs (old: {
+    meta = (old.meta or { }) // { priority = 1; };
+  });
+
   # Out-of-store, so the files stay editable and `nix flake update` can write the lock.
   configDir = "${config.home.homeDirectory}/nix-config/nix-on-droid";
 
@@ -15,6 +21,7 @@ in
   };
 
   config = lib.mkIf config.nixOnDroidModule.isTermux {
+    home.packages = [ termuxPing ];
     home.sessionVariables.BROWSER = "xdg-open";
 
     xdg.configFile."nix-on-droid".source = config.lib.file.mkOutOfStoreSymlink configDir;

@@ -1,18 +1,9 @@
-{ inputs, lib, pkgs, config, outputs, ... }:
-let
-  termuxPing = (pkgs.writeShellScriptBin "ping" ''
-    exec /system/bin/ping "$@"
-  '').overrideAttrs (old: {
-    meta = (old.meta or { }) // { priority = 1; };
-  });
-in {
+{ inputs, lib, pkgs, config, outputs, ... }: {
   options.zshModule.isTermux = lib.mkOption {
     type = lib.types.bool;
   };
   
   config = {
-    home.packages = lib.optionals config.zshModule.isTermux [ termuxPing ];
-
     programs.zsh = {
       enable = true;
       autosuggestion.enable = true;
