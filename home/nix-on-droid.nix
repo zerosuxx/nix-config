@@ -22,7 +22,22 @@ in
 
   config = lib.mkIf config.nixOnDroidModule.isTermux {
     home.packages = [ termuxPing ];
-    home.sessionVariables.BROWSER = "xdg-open";
+    home.sessionPath = lib.mkBefore [ "/system/bin" ];
+    home.sessionVariables = {
+      BROWSER = "xdg-open";
+      NPM_CONFIG_PREFIX = "${config.home.homeDirectory}/.npm";
+    };
+
+    home.activation.termuxInit = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      run sh -c 'mkdir -p "$HOME/.termux" && \
+        { [ -f "$HOME/.termux/termux.properties" ] || \
+          cat "${builtins.toString ../dotfiles/termux/termux.properties}" > "$HOME/.termux/termux.properties"; } && \
+        { [ -f "$HOME/.termux/colors.properties" ] || \
+          cat "${builtins.toString ../dotfiles/termux/colors.properties}" > "$HOME/.termux/colors.properties"; }'
+      # Android's /system is directly visible and read-only under PRoot.
+      run sh -c '[ -L "$HOME/sdcard" ] || ln -s /sdcard "$HOME/sdcard"'
+      run mkdir -p "$HOME/.npm/lib"
+    '';
 
     xdg.configFile."nix-on-droid".source = config.lib.file.mkOutOfStoreSymlink configDir;
 

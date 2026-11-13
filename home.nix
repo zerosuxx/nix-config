@@ -1,7 +1,7 @@
 { lib, pkgs, specialArgs, ... }:
 
 let
-  inherit (lib) mkIf mkMerge;
+  inherit (lib) mkIf;
   inherit (pkgs.stdenv) isLinux isDarwin;
 
   isTermux = builtins.getEnv "TERMUX_VERSION" != "";
@@ -19,7 +19,6 @@ in
     ./home/zsh.nix
   ] ++ lib.optional (builtins.pathExists ./home/ssh.nix) ./home/ssh.nix;
   
-  zshModule.isTermux = isTermux;
   nixOnDroidModule.isTermux = isTermux;
   
   home = {
@@ -32,25 +31,11 @@ in
       "$HOME/.krew/bin"
     ];
 
-    activation = mkMerge [
-      (mkIf isTermux {
-        termuxInit = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-          run sh -c 'mkdir -p "$HOME/.termux" && \
-            { [ -f "$HOME/.termux/termux.properties" ] || \
-              cat "${builtins.toString ./dotfiles/termux/termux.properties}" > "$HOME/.termux/termux.properties"; } && \
-            { [ -f "$HOME/.termux/colors.properties" ] || \
-              cat "${builtins.toString ./dotfiles/termux/colors.properties}" > "$HOME/.termux/colors.properties"; }'
-          # Android's /system is directly visible and read-only under PRoot.
-          run sh -c '[ -L "$HOME/sdcard" ] || ln -s /sdcard "$HOME/sdcard"'
-          run mkdir -p "$HOME/.npm/lib"
-        '';
-      })
-      (mkIf isDarwin {
-        nativeMessagingHosts = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-          run mkdir -p "$HOME/Library/Application Support/Mozilla/NativeMessagingHosts"
-        '';
-      })
-    ];
+    activation = mkIf isDarwin {
+      nativeMessagingHosts = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        run mkdir -p "$HOME/Library/Application Support/Mozilla/NativeMessagingHosts"
+      '';
+    };
   };
 
   programs = {

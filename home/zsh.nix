@@ -1,8 +1,4 @@
-{ inputs, lib, pkgs, config, outputs, ... }: {
-  options.zshModule.isTermux = lib.mkOption {
-    type = lib.types.bool;
-  };
-  
+{ pkgs, ... }: {
   config = {
     programs.zsh = {
       enable = true;
@@ -38,10 +34,6 @@
       
       initContent = ''
         ${if builtins.hasAttr "tzdata" pkgs then ''[[ -z "$TZDIR" ]] && export TZDIR="${pkgs.tzdata}/share/zoneinfo"'' else ""}
-        ${if config.zshModule.isTermux then ''
-          export PATH=/system/bin:$PATH
-          export NPM_CONFIG_PREFIX=~/.npm
-        '' else ""}
     
         zstyle ":completion:*:*:make:*" tag-order "targets"
         zstyle ":completion:*" matcher-list "" "m:{a-zA-Z}={A-Za-z}"
