@@ -6,7 +6,7 @@ pkgs: with pkgs; [
   devbox
   dig.dnsutils
   # glibc.bin
-  go
+  go-master
   goreleaser
   git
   gnupg

@@ -46,6 +46,7 @@ final: prev: {
   claude-code        = master.claude-code;
   codex              = master.codex;
   github-copilot-cli = master.github-copilot-cli;
+  go-master          = master.go;
   terragrunt         = master.terragrunt;
 }
 // builtins.mapAttrs (name: source: sources.${source}.${name}) packageSources
