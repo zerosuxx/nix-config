@@ -6,7 +6,7 @@ let
   # Re-run `nix-on-droid switch` only when its config changed since the last run.
   configHash = builtins.hashString "sha256" (lib.concatMapStrings
     (f: builtins.readFile (../nix-on-droid + "/${f}"))
-    [ "flake.nix" "flake.lock" "nix-on-droid.nix" "proot-static-path" ]);
+    [ "flake.nix" "flake.lock" "nix-on-droid.nix" "proot-static-url" "proot-static-sha256" ]);
   stampFile = "${config.xdg.stateHome}/nix-on-droid/config.sha256";
 in
 {

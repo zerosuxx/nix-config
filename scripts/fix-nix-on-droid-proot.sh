@@ -2,16 +2,21 @@
 
 set -eu
 
-# Shared with the Nix-on-Droid config, which keeps this proot staged on every switch.
-STORE_PATH="$(cat "$(dirname "$0")/../nix-on-droid/proot-static-path")"
+# Shared release pin with the Nix-on-Droid activation step.
+CONFIG_DIR="$(dirname "$0")/../nix-on-droid"
+URL="$(cat "$CONFIG_DIR/proot-static-url")"
+EXPECTED_HASH="$(cat "$CONFIG_DIR/proot-static-sha256")"
 TARGET="/data/data/com.termux.nix/files/usr/bin/.proot-static.new"
 
-# Same GC root as the config's installProotStatic step.
-mkdir -p "$HOME/.local/state/nix-on-droid"
-nix-store --realise "$STORE_PATH" --add-root "$HOME/.local/state/nix-on-droid/proot-static"
+# Download beside the target so the final rename is atomic. Keep any previous
+# staged binary intact if the download or checksum verification fails.
+TEMP_FILE="$(mktemp "${TARGET}.XXXXXX")"
+trap 'rm -f "$TEMP_FILE"' EXIT
+trap 'exit 1' HUP INT TERM
+curl --fail --location --retry 3 --output "$TEMP_FILE" "$URL"
+printf '%s  %s\n' "$EXPECTED_HASH" "$TEMP_FILE" | sha256sum -c -
+chmod 700 "$TEMP_FILE"
+mv "$TEMP_FILE" "$TARGET"
 
-cp "$STORE_PATH/bin/proot-static" "$TARGET"
-chmod +x "$TARGET"
-
-echo "Patched proot installed:"
+echo "Patched proot staged; restart Nix-on-Droid completely to activate it:"
 sha256sum "$TARGET"

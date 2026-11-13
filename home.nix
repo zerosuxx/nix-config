@@ -40,12 +40,7 @@ in
               cat "${builtins.toString ./dotfiles/termux/termux.properties}" > "$HOME/.termux/termux.properties"; } && \
             { [ -f "$HOME/.termux/colors.properties" ] || \
               cat "${builtins.toString ./dotfiles/termux/colors.properties}" > "$HOME/.termux/colors.properties"; }'
-          run ln -f -s /android/system/bin/linker64 /system/bin/linker64
-          run ln -f -s /android/system/bin/ping /system/bin/ping
-          run ln -f -s /android/system/bin/logcat /system/bin/logcat
-          run ln -f -s /android/system/bin/app_process /system/bin/app_process
-          run ln -f -s /android/system/bin/dumpsys /system/bin/dumpsys
-          cp /android/system/etc/public.libraries.txt /system/etc/public.libraries.txt
+          # Android's /system is directly visible and read-only under PRoot.
           run sh -c '[ -L "$HOME/sdcard" ] || ln -s /sdcard "$HOME/sdcard"'
           run mkdir -p "$HOME/.npm/lib"
         '';

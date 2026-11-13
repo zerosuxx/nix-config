@@ -1,5 +1,10 @@
 { config, lib, pkgs, fontPkgs, ... }:
-
+let
+  patchedProot = pkgs.fetchurl {
+    url = lib.fileContents ./proot-static-url;
+    sha256 = lib.fileContents ./proot-static-sha256;
+  };
+in
 {
   # Simply install just the packages
   environment.packages = with pkgs; [
@@ -45,16 +50,13 @@
 
     # The stock step stages this release's 2024 proot as /bin/.proot-static.new,
     # which login swaps in on the next cold start, replacing the patched proot
-    # that the 26.05 packages need. The path is shared with
+    # that the 26.05 packages need. The release pin is shared with
     # scripts/fix-nix-on-droid-proot.sh, which stages it before the first switch.
     installProotStatic = ''
-      patched=${lib.fileContents ./proot-static-path}
-      # GC root, so a garbage collection can't drop it and force a re-download.
-      $DRY_RUN_CMD mkdir -p "$HOME/.local/state/nix-on-droid"
-      $DRY_RUN_CMD nix-store --realise "$patched" --add-root "$HOME/.local/state/nix-on-droid/proot-static" > /dev/null
-      if ! diff /bin/proot-static "$patched/bin/proot-static" > /dev/null; then
-        $DRY_RUN_CMD cp $VERBOSE_ARG "$patched/bin/proot-static" /bin/.proot-static.tmp
-        $DRY_RUN_CMD chmod $VERBOSE_ARG u+w /bin/.proot-static.tmp
+      patched=${patchedProot}
+      if ! diff /bin/proot-static "$patched" > /dev/null; then
+        $DRY_RUN_CMD cp $VERBOSE_ARG "$patched" /bin/.proot-static.tmp
+        $DRY_RUN_CMD chmod $VERBOSE_ARG 700 /bin/.proot-static.tmp
         $DRY_RUN_CMD mv $VERBOSE_ARG /bin/.proot-static.tmp /bin/.proot-static.new
       else
         $DRY_RUN_CMD rm -f $VERBOSE_ARG /bin/.proot-static.new
@@ -67,7 +69,9 @@
   # VPN (Twingate) and Private DNS work; -p makes proot rewrite ports below 1024
   # by +2000, so queries to 127.0.0.1:53 reach it. Without the forwarder the
   # loopback refuses at once and glibc falls back to the public servers.
-  build.extraProotOptions = [ "-p" ];
+  build.extraProotOptions = [
+    "-p"
+  ];
 
   environment.etc."resolv.conf".text = lib.mkForce ''
     nameserver 127.0.0.1
