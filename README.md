@@ -111,10 +111,10 @@ export ZSH_COMMIT_PROVIDER=agy
 export ZSH_COMMIT_PROVIDER=claude
 ```
 
-The persistent default is set in `home/variables.nix`; apply changes with `rld`
+The persistent defaults are set in `home/variables.nix`; apply changes with `rld`
 and start a new login shell. Optional model overrides are
 `ZSH_CLAUDE_COMMIT_MODEL` (default: `haiku`) and `ZSH_AGY_COMMIT_MODEL` (default:
-the CLI's configured model). `ZSH_CLAUDE_COMMIT_MAX_DIFF_BYTES` limits the diff
+`gemini-3.8-flash-low`). `ZSH_CLAUDE_COMMIT_MAX_DIFF_BYTES` limits the diff
 body for either provider (default: `100000` bytes).
 
 ### Update flake

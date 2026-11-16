@@ -21,6 +21,7 @@
       TZ = "Europe/Budapest";
       SHELL = "${pkgs.zsh}/bin/zsh";
       ZSH_COMMIT_PROVIDER = "agy";
+      ZSH_AGY_COMMIT_MODEL = "gemini-3.8-flash-low";
 
       # k9s
       K9S_FEATURE_GATE_NODE_SHELL = "true";
