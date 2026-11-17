@@ -33,10 +33,13 @@ final: prev: {
   ruby_4_0         = unstable.ruby_4_0;
 
   bws            = zerosuxx.bws;
+  cloudflare-cli = zerosuxx.cloudflare-cli;
   coderabbit-cli = zerosuxx.coderabbit-cli;
   kubelogin      = zerosuxx.kubelogin;
   labctl         = zerosuxx.labctl;
   ollama         = zerosuxx.ollama;
+  railway        = zerosuxx.railway;
+  render-cli     = zerosuxx.render-cli;
   sofka          = zerosuxx.sofka;
   termux-am      = zerosuxx.termux-am;
   termux-api     = zerosuxx.termux-api;

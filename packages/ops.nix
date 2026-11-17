@@ -5,6 +5,7 @@ pkgs: with pkgs; [
   ])
   bws
   claude-code
+  cloudflare-cli
   coderabbit-cli
   codex
   gh
@@ -33,6 +34,8 @@ pkgs: with pkgs; [
   })
   labctl
   oci-cli
+  railway
+  render-cli
   sentry-cli
   sofka
   terraform
