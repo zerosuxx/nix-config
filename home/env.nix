@@ -31,6 +31,9 @@
 
       # azure
       AZURE_CORE_OUTPUT = "table";
+
+      # render cli
+      DO_NOT_TRACK = "1";
     }
     (cfg.env or {})
   ];
