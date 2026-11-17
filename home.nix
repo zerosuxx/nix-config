@@ -15,7 +15,7 @@ in
     ./home/k9s.nix
     ./home/nix-on-droid.nix
     ./home/packages.nix
-    ./home/variables.nix
+    ./home/env.nix
     ./home/zsh.nix
   ] ++ lib.optional (builtins.pathExists ./home/ssh.nix) ./home/ssh.nix;
   
