@@ -33,6 +33,7 @@ pkgs: with pkgs; [
     ];
   })
   labctl
+  neon-cli
   oci-cli
   railway
   render-cli
