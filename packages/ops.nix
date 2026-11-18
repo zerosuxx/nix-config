@@ -33,12 +33,12 @@ pkgs: with pkgs; [
     ];
   })
   labctl
-  neon-cli
   oci-cli
   railway
   render-cli
   sentry-cli
   sofka
+  supabase-cli
   terraform
   terragrunt
 ]

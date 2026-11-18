@@ -37,11 +37,11 @@ final: prev: {
   coderabbit-cli = zerosuxx.coderabbit-cli;
   kubelogin      = zerosuxx.kubelogin;
   labctl         = zerosuxx.labctl;
-  neon-cli       = zerosuxx.neon-cli;
   ollama         = zerosuxx.ollama;
   railway        = zerosuxx.railway;
   render-cli     = zerosuxx.render-cli;
   sofka          = zerosuxx.sofka;
+  supabase-cli   = zerosuxx.supabase-cli;
   termux-am      = zerosuxx.termux-am;
   termux-api     = zerosuxx.termux-api;
   terraform      = zerosuxx.terraform;
